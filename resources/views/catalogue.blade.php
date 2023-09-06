@@ -17,8 +17,8 @@
         <div class="text-5xl my-12  text-center">
             <h1>All</h1>
         </div>
-        <div class="flex flex-row mx-8 my-12">
-            <div class="basis-1/4 mx-8">
+        <div class="flex flex-row max-md:flex-col mx-8 my-12">
+            <div class="basis-1/4 mx-8 max-md:my-6">
                 <div
                     class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                     <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-1/4 mx-8">
+            <div class="basis-1/4 mx-8 max-md:my-6">
                 <div
                     class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                     <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-1/4 mx-8">
+            <div class="basis-1/4 mx-8 max-md:my-6">
                 <div
                     class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                     <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
@@ -115,7 +115,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-1/4 mx-8">
+            <div class="basis-1/4 mx-8 max-md:my-6">
                 <div
                     class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                     <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
@@ -154,7 +154,7 @@
         class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
         id="exampleModalXl" tabindex="-1" aria-labelledby="exampleModalXlLabel" aria-modal="true" role="dialog">
         <div data-te-modal-dialog-ref
-            class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px] min-[992px]:max-w-[800px] min-[1200px]:max-w-[1140px]">
+            class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-auto  min-[576px]:max-w-[500px] min-[992px]:max-w-[800px] min-[1200px]:max-w-[1140px]">
             <div
                 class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600">
                 <div
@@ -177,8 +177,8 @@
 
                 <!--Modal body-->
                 <div class="relative p-4">
-                    <div class="flex flex-row">
-                        <div class="basis-1/2">
+                    <div class="flex flex-row max-md:flex-col">
+                            <div class="basis-1/2">
                             <div id="carouselExampleIndicators" class="relative" data-te-carousel-init
                                 data-te-ride="carousel">
                                 <!--Carousel indicators-->
