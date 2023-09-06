@@ -4,10 +4,16 @@ import {
     Ripple,
     initTE,
     Dropdown,
+    Input,
+    Modal,
+    Carousel
 } from "tw-elements";
 
 initTE({
     Collapse,
     Ripple,
-    Dropdown
+    Dropdown,
+    Input,
+    Modal,
+    Carousel
 });
