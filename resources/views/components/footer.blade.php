@@ -1,5 +1,5 @@
     <!-- Footer container -->
-    <footer class="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
+    <footer class="bg-neutral-100 text-center text-neutral-600 lg:text-left">
 
 
         <!-- Main container div: holds the entire content of the footer, including four sections (Tailwind Elements, Products, Useful links, and Contact), with responsive styling and appropriate padding/margins. -->
@@ -70,9 +70,9 @@
         </div>
 
         <!--Copyright section-->
-        <div class="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
+        <div class="bg-neutral-200 p-6 text-center">
             <span>© 2023 Copyright:</span>
-            <a class="font-semibold text-neutral-600 dark:text-neutral-400"
+            <a class="font-semibold text-neutral-600"
                 href="https://tailwind-elements.com/">Tailwind Elements</a>
         </div>
     </footer>

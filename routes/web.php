@@ -26,3 +26,13 @@ Route::get('contact-us', function () {
 Route::get('catalogue', function () {
     return view('catalogue');
 });
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
