@@ -12,7 +12,7 @@
 
 <body>
     <!-- Main navigation container -->
-    @include('components.navbar')
+    @include('public.components.navbar')
     <header>
 
         <!-- Hero section with background image, heading, subheading and button -->
@@ -95,7 +95,7 @@
     </div>
 
     <!-- Footer container -->
-    @include('components.footer')
+    @include('public.components.footer')
 
     {{-- Gallery --}}
 </body>

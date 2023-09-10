@@ -12,7 +12,7 @@
 
 <body>
     <!-- Main navigation container -->
-    @include('components.navbar')
+    @include('public.components.navbar')
 
     {{-- about us --}}
     <div class="my-4 ">
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Footer container -->
-    @include('components.footer')
+    @include('public.components.footer')
 
     {{-- Gallery --}}
 </body>

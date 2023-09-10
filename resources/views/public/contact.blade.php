@@ -12,7 +12,7 @@
 
 <body>
     <!-- Main navigation container -->
-    @include('components.navbar')
+    @include('public.components.navbar')
     <div class="my-12">
         <div class="text-5xl justify-center text-center">
             <h1>Contact Us</h1>
@@ -101,7 +101,7 @@
     </div>
 
     <!-- Footer container -->
-    @include('components.footer')
+    @include('public.components.footer')
 
     {{-- Gallery --}}
 </body>

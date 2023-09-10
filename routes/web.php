@@ -14,17 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('landing');
+    return view('public.landing');
 });
 
 Route::get('about-us', function () {
-    return view('about');
+    return view('public.about');
 });
 Route::get('contact-us', function () {
-    return view('contact');
+    return view('public.contact');
 });
 Route::get('catalogue', function () {
-    return view('catalogue');
+    return view('public.catalogue');
 });
 
 Route::middleware([
