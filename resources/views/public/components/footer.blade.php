@@ -52,6 +52,6 @@
         <!--Copyright section-->
         <div class="bg-neutral-200 p-6 text-center font-futura">
             <span>© 2023 Copyright:</span>
-            <a class="font-semibold text-neutral-600" href="https://tailwind-elements.com/">Piranti Works 2023 by CV Tirtawana Piranti</a>
+            <a class="font-semibold text-neutral-600" href="https://tailwind-elements.com/">Piranti Works by CV Tirtawana Piranti</a>
         </div>
     </footer>
