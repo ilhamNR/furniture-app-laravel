@@ -3,7 +3,7 @@
         data-te-navbar-ref>
         <div class="flex w-full flex-wrap items-center justify-between px-3">
             <div class="ml-2 md:absolute">
-                <a class="text-xl text-neutral-800" href="/">Nama</a>
+                <a class="text-xl text-neutral-800" href="/">{{env('APP_NAME')}}</a>
             </div>
             <!-- Hamburger button for mobile view -->
             <button
