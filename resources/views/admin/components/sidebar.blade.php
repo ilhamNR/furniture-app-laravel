@@ -47,10 +47,11 @@
                                 <!--begin::Menu-->
                                 <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu"
                                     data-kt-menu="true" data-kt-menu-expand="false">
+
                                     <!--begin:Menu item-->
                                     <div class="menu-item here show menu-accordion">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link" href="../../demo1/dist/index.html">
+                                        <a class="menu-link" href={{ route('admin.dashboard')}}>
                                             <span class="menu-icon">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                                 <span class="svg-icon svg-icon-2">
@@ -83,30 +84,7 @@
                                             <span class="menu-heading fw-bold text-uppercase fs-7">Web</span>
                                         </div>
                                         <!--end:Menu content-->
-                                    </div>
-                                    <!--begin:Menu item-->
-                                    <div class="menu-item menu-accordion">
-                                        <!--begin:Menu link-->
-                                        <a class="menu-link" href={{ route('admin.aboutUs')}}>
-                                            <span class="menu-icon">
-                                                <!--begin::Svg Icon | path: icons/duotune/files/fil003.svg-->
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path opacity="0.3"
-                                                            d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22Z"
-                                                            fill="currentColor" />
-                                                        <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->
-                                            </span>
-                                            <span class="menu-title">About Us</span>
-                                        </a>
-                                        <!--end:Menu link-->
-                                    </div>
-                                    <!--begin:Menu item-->
+                                                                            <!--begin:Menu item-->
                                     <div class="menu-item menu-accordion">
                                         <!--begin:Menu link-->
                                         <a class="menu-link" href="../../demo1/dist/index.html">
@@ -130,6 +108,30 @@
                                         <!--end:Menu link-->
                                     </div>
                                     <!--end:Menu item-->
+                                    </div>
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item menu-accordion">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href={{ route('admin.aboutUs')}}>
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/files/fil003.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path opacity="0.3"
+                                                            d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22Z"
+                                                            fill="currentColor" />
+                                                        <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <span class="menu-title">About Us</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+
                                     <!--begin:Menu item-->
                                     <div class="menu-item pt-5">
                                         <!--begin:Menu content-->
@@ -142,7 +144,7 @@
                                     <!--begin:Menu item-->
                                     <div class="menu-item menu-accordion">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link" href="../../demo1/dist/index.html">
+                                        <a class="menu-link" href={{ route('admin.products')}}>
                                             <span class="menu-icon">
                                                 <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
                                                 <span class="svg-icon svg-icon-2">
@@ -169,7 +171,7 @@
                                     <!--begin:Menu item-->
                                     <div class="menu-item menu-accordion">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link" href="../../demo1/dist/index.html">
+                                        <a class="menu-link" href={{ route('admin.productCategories')}}>
                                             <span class="menu-icon">
                                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
                                                 <span class="svg-icon svg-icon-2">
