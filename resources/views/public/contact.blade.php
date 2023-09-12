@@ -1,18 +1,6 @@
-<!doctype html>
-<html>
+@extends('public.components.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
-
-</head>
-
-<body>
-    <!-- Main navigation container -->
-    @include('public.components.navbar')
+@section('content')
     <div class="my-12">
         <div class="text-5xl justify-center text-center">
             <h1>Contact Us</h1>
@@ -100,13 +88,4 @@
 
     </div>
 
-    <!-- Footer container -->
-    @include('public.components.footer')
-
-    {{-- Gallery --}}
-</body>
-
-
-{{-- <script type="text/javascript" src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> --}}
-
-</html>
+@stop

@@ -1,25 +1,13 @@
-<!doctype html>
-<html>
+@extends('public.components.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
-
-</head>
-
-<body>
-    <!-- Main navigation container -->
-    @include('public.components.navbar')
+@section('content')
     <header>
 
         <!-- Hero section with background image, heading, subheading and button -->
         <div class="relative overflow-hidden bg-cover bg-no-repeat"
             style="
             background-position: 50%;
-            background-image: url('https://tecdn.b-cdn.net/img/new/slides/146.webp');
+            background-image: url('https://pngimg.com/uploads/under_construction/under_construction_PNG3.png');
             height: 350px;
           ">
             <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
@@ -36,10 +24,9 @@
         <div class="flex flex-row max-md:flex-col justify-center">
             <div
                 class="mx-8 max-md:my-4 block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
-                    data-te-ripple-color="light">
-                    <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
-                        alt="" />
+                <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init data-te-ripple-color="light">
+                    <img class="rounded-t-lg"
+                        src="https://pngimg.com/uploads/under_construction/under_construction_PNG14.png" alt="" />
                     <a href="#!">
                         <div
                             class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100">
@@ -57,8 +44,8 @@
                 class="mx-8 max-md:my-4 block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
                 <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
                     data-te-ripple-color="light">
-                    <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
-                        alt="" />
+                    <img class="rounded-t-lg"
+                        src="https://pngimg.com/uploads/under_construction/under_construction_PNG14.png" alt="" />
                     <a href="#!">
                         <div
                             class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100">
@@ -76,8 +63,8 @@
                 class="mx-8 max-md:my-4 block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
                 <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
                     data-te-ripple-color="light">
-                    <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
-                        alt="" />
+                    <img class="rounded-t-lg"
+                        src="https://pngimg.com/uploads/under_construction/under_construction_PNG14.png" alt="" />
                     <a href="#!">
                         <div
                             class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100">
@@ -93,14 +80,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer container -->
-    @include('public.components.footer')
-
-    {{-- Gallery --}}
-</body>
-
-
-{{-- <script type="text/javascript" src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> --}}
-
-</html>
+@stop

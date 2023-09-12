@@ -1,18 +1,6 @@
-<!doctype html>
-<html>
+@extends('public.components.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
-
-</head>
-
-<body>
-    <!-- Main navigation container -->
-    @include('public.components.navbar')
+@section('content')
     <div class="my-12  justify-center">
         <div class="text-5xl my-12  text-center">
             <h1>All</h1>
@@ -76,8 +64,8 @@
                         </p>
                         <button type="button"
                             class="w-full inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                            data-te-ripple-init data-te-toggle="modal" data-te-target="#exampleModalXl"
-                            data-te-ripple-init data-te-ripple-color="light">
+                            data-te-ripple-init data-te-toggle="modal" data-te-target="#exampleModalXl" data-te-ripple-init
+                            data-te-ripple-color="light">
                             Details
                         </button>
                     </div>
@@ -160,8 +148,7 @@
                 <div
                     class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4">
                     <!--Modal title-->
-                    <h5 class="text-xl font-medium leading-normal text-neutral-800"
-                        id="exampleModalCenterTitle">
+                    <h5 class="text-xl font-medium leading-normal text-neutral-800" id="exampleModalCenterTitle">
                         Product Details
                     </h5>
                     <!--Close button-->
@@ -178,7 +165,7 @@
                 <!--Modal body-->
                 <div class="relative p-4">
                     <div class="flex flex-row max-md:flex-col">
-                            <div class="basis-1/2">
+                        <div class="basis-1/2">
                             <div id="carouselExampleIndicators" class="relative" data-te-carousel-init
                                 data-te-ride="carousel">
                                 <!--Carousel indicators-->
@@ -204,20 +191,20 @@
                                     <!--First item-->
                                     <div class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
                                         data-te-carousel-item data-te-carousel-active>
-                                        <img src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                                            class="block w-full" alt="Wild Landscape" />
+                                        <img src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp" class="block w-full"
+                                            alt="Wild Landscape" />
                                     </div>
                                     <!--Second item-->
                                     <div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
                                         data-te-carousel-item>
-                                        <img src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
-                                            class="block w-full" alt="Camera" />
+                                        <img src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp" class="block w-full"
+                                            alt="Camera" />
                                     </div>
                                     <!--Third item-->
                                     <div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
                                         data-te-carousel-item>
-                                        <img src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
-                                            class="block w-full" alt="Exotic Fruits" />
+                                        <img src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp" class="block w-full"
+                                            alt="Exotic Fruits" />
                                     </div>
                                 </div>
 
@@ -298,13 +285,4 @@
             </div>
         </div>
     </div>
-    <!-- Footer container -->
-    @include('public.components.footer')
-
-    {{-- Gallery --}}
-</body>
-
-
-{{-- <script type="text/javascript" src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> --}}
-
-</html>
+@stop
