@@ -28,7 +28,7 @@ License: For each use you must have a valid license purchased only from above li
     <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon"<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" /> sizes="144x144" href="/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
@@ -43,8 +43,7 @@ License: For each use you must have a valid license purchased only from above li
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Vendor Stylesheets(used by this page)-->
-    <link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+
     <!--end::Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
@@ -187,7 +186,6 @@ License: For each use you must have a valid license purchased only from above li
         <script src="assets/js/scripts.bundle.js"></script>
         <!--end::Global Javascript Bundle-->
         <!--begin::Vendors Javascript(used by this page)-->
-        <script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
         <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
         <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
         <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
