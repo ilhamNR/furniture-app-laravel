@@ -87,7 +87,7 @@
                                     <!--begin:Menu item-->
                                     <div class="menu-item menu-accordion">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link" href="../../demo1/dist/index.html">
+                                        <a class="menu-link" href={{ route('admin.aboutUs')}}>
                                             <span class="menu-icon">
                                                 <!--begin::Svg Icon | path: icons/duotune/files/fil003.svg-->
                                                 <span class="svg-icon svg-icon-2">
