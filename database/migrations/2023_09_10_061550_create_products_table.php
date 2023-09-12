@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('product_category_id')->index('product_product_category_foreign');
-            $table->integer('price');
             $table->integer('is_available');
             $table->string('description');
             $table->timestamps();
