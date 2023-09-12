@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\WebSettingController;
+use App\Models\WebSetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +34,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::prefix('admin')->group(function () {
+        Route::get('dashboard', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+        Route::get('about-us', [WebSettingController::class, 'aboutUs'])->name('admin.aboutUs');
+    });
 });
