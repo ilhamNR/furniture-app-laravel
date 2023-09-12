@@ -3632,8 +3632,8 @@
                                 <!--begin::Menu toggle-->
                                 <a href="#"
                                     class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px"
-                                    data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                    data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                                    data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent"
+                                    data-kt-menu-placement="bottom-end">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen060.svg-->
                                     <span class="svg-icon theme-light-show svg-icon-2">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -3830,14 +3830,16 @@
                                     <!--end::Menu separator-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5 my-1">
-                                        <a href="../../demo1/dist/account/settings.html"
-                                            class="menu-link px-5">Update Account</a>
+                                        <a href="../../demo1/dist/account/settings.html" class="menu-link px-5">Update
+                                            Account</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5">
-                                        <a href="../../demo1/dist/authentication/flows/basic/sign-in.html"
-                                            class="menu-link px-5">Sign Out</a>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a href="#" class="menu-link px-5" onclick="event.preventDefault(); this.closest('form').submit();">Sign Out</a>
+                                        </form>
                                     </div>
                                     <!--end::Menu item-->
                                 </div>
