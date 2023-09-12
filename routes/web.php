@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\WebSettingController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Models\WebSetting;
 
 /*
@@ -39,5 +40,6 @@ Route::middleware([
             return view('admin.dashboard');
         })->name('dashboard');
         Route::get('about-us', [WebSettingController::class, 'aboutUs'])->name('admin.aboutUs');
+        Route::get('categories', [ProductCategoryController::class, 'index'])->name('admin.productCategories');
     });
 });

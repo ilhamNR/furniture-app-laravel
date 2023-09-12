@@ -43,6 +43,7 @@ License: For each use you must have a valid license purchased only from above li
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Vendor Stylesheets(used by this page)-->
+    @yield("header")
 
     <!--end::Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
