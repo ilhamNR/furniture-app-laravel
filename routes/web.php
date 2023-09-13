@@ -45,6 +45,7 @@ Route::middleware([
         Route::get('categories', [ProductCategoryController::class, 'index'])->name('admin.productCategories');
         Route::prefix('categories')->group(function () {
             Route::post('create', [ProductCategoryController::class, 'store'])->name('admin.createProductcategory');
+            Route::delete('destroy', [ProductCategoryController::class, 'destroy'])->name('admin.deleteProductCategories');
         });
         Route::get('products', [ProductController::class, 'index'])->name('admin.products');
     });

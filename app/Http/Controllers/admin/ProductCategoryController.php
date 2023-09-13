@@ -42,6 +42,20 @@ class ProductCategoryController extends Controller
 
             return $this->success(200, 'Category "' . $request->name . '" has been created');
         } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error("failed", 401);
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            DB::table('product_categories')->whereIn('id', $request->ids)->delete();
+            DB::commit();
+            return $this->success(200, 'You have deleted all selected categories!.');
+        } catch (\Exception $e) {
+            DB::rollBack();
             return $this->error("failed", 401);
         }
     }

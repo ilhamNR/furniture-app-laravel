@@ -255,9 +255,6 @@
                     d.addEventListener('click', function(e) {
                         e.preventDefault();
 
-                        //reload datatable
-
-
                         // Select parent row
                         const parent = e.target.closest('tr');
 
@@ -354,32 +351,89 @@
                         },
                     }).then(function(result) {
                         if (result.value) {
-                            // Simulate delete request -- for demo purpose only
-                            Swal.fire({
-                                text: "Deleting selected categories",
-                                icon: "info",
-                                buttonsStyling: false,
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then(function() {
-                                Swal.fire({
-                                    text: "You have deleted all selected categories!.",
-                                    icon: "success",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
-                                    customClass: {
-                                        confirmButton: "btn fw-bold btn-primary",
-                                    }
-                                }).then(function() {
-                                    // delete row data from server and re-draw datatable
-                                    dt.draw();
-                                });
+                            // Get all the checkboxes with the "row-selected" class within the table body
+                            const checkboxes = document.querySelectorAll(
+                                'input[type="checkbox"]');
 
-                                // Remove header checked box
-                                const headerCheckbox = container.querySelectorAll(
-                                    '[type="checkbox"]')[0];
-                                headerCheckbox.checked = false;
+                            // Initialize an empty array to store the values
+                            const selectedValues = [];
+
+                            // Loop through the checkboxes and push their values to the array
+                            checkboxes.forEach((checkbox) => {
+                                if (checkbox.checked === true) {
+                                    selectedValues.push(checkbox.value);
+                                }
                             });
+
+                            // // Log the selected values to the console
+                            // console.log(selectedValues);
+
+                            // Convert the array of selected values to a comma-separated string
+                            const selectedIds = selectedValues.join(',');
+
+                            fetch('{!! route('admin.deleteProductCategories') !!}', {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': "application/json",
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Replace with the actual CSRF token
+
+                                    },
+                                    body: JSON.stringify({
+                                        ids: selectedValues, // Send the selected IDs as a JSON object
+                                    }),
+                                })
+                                .then((response) => {
+                                    if (response.ok) {
+                                        response.json().then(data => {
+                                            Swal.fire({
+                                                text: "Deleting selected categories",
+                                                icon: "info",
+                                                buttonsStyling: false,
+                                                showConfirmButton: false,
+                                                timer: 1
+                                            }).then(function() {
+                                                Swal.fire({
+                                                    text: data.data,
+                                                    icon: "success",
+                                                    buttonsStyling: false,
+                                                    confirmButtonText: "Ok, got it!",
+                                                    customClass: {
+                                                        confirmButton: "btn fw-bold btn-primary",
+                                                    }
+                                                }).then(function() {
+                                                    // delete row data from server and re-draw datatable
+                                                    dt.draw();
+                                                });
+
+                                                // Remove header checked box
+                                                const headerCheckbox = container
+                                                    .querySelectorAll(
+                                                        '[type="checkbox"]')[0];
+                                                headerCheckbox.checked = false;
+                                            });
+                                            // You can add code here to close the modal or perform other actions
+                                        });
+
+                                    } else {
+                                        response.json().then(data => {
+                                            Swal.fire({
+                                                text: data.message,
+                                                icon: "error",
+                                                buttonsStyling: false,
+                                                confirmButtonText: "Ok",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            });
+                                            // You can add code here to close the modal or perform other actions
+                                        });
+                                        // You can add code here to close the modal or perform other actions
+                                    }
+                                })
+
+
+                            // Simulate delete request -- for demo purpose only
                         } else if (result.dismiss === 'cancel') {
                             Swal.fire({
                                 text: "Selected categories was not deleted.",
@@ -463,7 +517,7 @@
                 fetch('{!! route('admin.createProductcategory') !!}', {
                         method: 'POST',
                         headers: {
-                            'Accept' : "application/json",
+                            'Accept': "application/json",
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}', // Replace with the actual CSRF token
                         },
