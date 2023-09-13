@@ -3,7 +3,7 @@
 @section('content')
     <div class="my-12  justify-center">
         <div class="text-5xl my-12  text-center">
-            <h1>All</h1>
+            <h1>{{$data->name}}</h1>
         </div>
         <div class="flex flex-row max-md:flex-col mx-8 my-12">
             <div class="basis-1/4 mx-8 max-md:my-6">
