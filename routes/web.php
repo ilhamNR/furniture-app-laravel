@@ -29,7 +29,7 @@ Route::get('contact-us', function () {
 });
 Route::get('catalogue', function () {
     return view('public.catalogue');
-});
+})->name('catalogue');
 
 Route::middleware([
     'auth:sanctum',
