@@ -43,6 +43,9 @@ Route::middleware([
         Route::get('landing-page', [LandingPageController::class, 'index'])->name('admin.landingPage');
         Route::get('about-us', [WebSettingController::class, 'aboutUs'])->name('admin.aboutUs');
         Route::get('categories', [ProductCategoryController::class, 'index'])->name('admin.productCategories');
+        Route::prefix('categories')->group(function () {
+            Route::post('create', [ProductCategoryController::class, 'store'])->name('admin.createProductcategory');
+        });
         Route::get('products', [ProductController::class, 'index'])->name('admin.products');
     });
 });
