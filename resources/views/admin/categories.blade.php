@@ -261,6 +261,12 @@
                         // Get category name
                         const categoryName = parent.querySelectorAll('td')[1].innerText;
 
+                        // Get category id
+                        const categoryId = parent.querySelectorAll('td')[0];
+                        // Find the <input> element within the <td>
+                        const inputElement = categoryId.querySelector('input.form-check-input')
+                            .value
+
                         // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
                         Swal.fire({
                             text: "Are you sure you want to delete " + categoryName + "?",
@@ -275,28 +281,65 @@
                             }
                         }).then(function(result) {
                             if (result.value) {
-                                // Simulate delete request -- for demo purpose only
-                                Swal.fire({
-                                    text: "Deleting " + categoryName,
-                                    icon: "info",
-                                    buttonsStyling: false,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                }).then(function() {
-                                    Swal.fire({
-                                        text: "You have deleted " +
-                                            categoryName + "!.",
-                                        icon: "success",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
-                                        customClass: {
-                                            confirmButton: "btn fw-bold btn-primary",
+                                fetch('{!! route('admin.deleteProductCategories') !!}', {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Accept': "application/json",
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Replace with the actual CSRF token
+
+                                        },
+                                        body: JSON.stringify({
+                                            ids: [inputElement], // Send the selected IDs as a JSON object
+                                        }),
+                                    })
+                                    .then((response) => {
+                                        if (response.ok) {
+                                            response.json().then(data => {
+                                                // Simulate delete request -- for demo purpose only
+                                                Swal.fire({
+                                                    text: "Deleting " +
+                                                        categoryName,
+                                                    icon: "info",
+                                                    buttonsStyling: false,
+                                                    showConfirmButton: false,
+                                                    timer: 1
+                                                }).then(function() {
+                                                    Swal.fire({
+                                                        text: "You have deleted " +
+                                                            categoryName +
+                                                            "!.",
+                                                        icon: "success",
+                                                        buttonsStyling: false,
+                                                        confirmButtonText: "Ok, got it!",
+                                                        customClass: {
+                                                            confirmButton: "btn fw-bold btn-primary",
+                                                        }
+                                                    }).then(
+                                                        function() {
+                                                            // delete row data from server and re-draw datatable
+                                                            dt
+                                                        .draw();
+                                                        });
+                                                });
+                                            });
+
+                                        } else {
+                                            response.json().then(data => {
+                                                Swal.fire({
+                                                    text: data.message,
+                                                    icon: "error",
+                                                    buttonsStyling: false,
+                                                    confirmButtonText: "Ok",
+                                                    customClass: {
+                                                        confirmButton: "btn btn-primary"
+                                                    }
+                                                });
+                                                // You can add code here to close the modal or perform other actions
+                                            });
+                                            // You can add code here to close the modal or perform other actions
                                         }
-                                    }).then(function() {
-                                        // delete row data from server and re-draw datatable
-                                        dt.draw();
-                                    });
-                                });
+                                    })
                             } else if (result.dismiss === 'cancel') {
                                 Swal.fire({
                                     text: categoryName + " was not deleted.",
@@ -368,8 +411,6 @@
                             // // Log the selected values to the console
                             // console.log(selectedValues);
 
-                            // Convert the array of selected values to a comma-separated string
-                            const selectedIds = selectedValues.join(',');
 
                             fetch('{!! route('admin.deleteProductCategories') !!}', {
                                     method: 'DELETE',
