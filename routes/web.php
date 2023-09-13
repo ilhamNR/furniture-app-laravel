@@ -1,10 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//admin controller
 use App\Http\Controllers\Admin\WebSettingController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LandingPageController;
+
+//public controller
+use App\Http\Controllers\public\CatalogueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +31,7 @@ Route::get('about-us', function () {
 Route::get('contact-us', function () {
     return view('public.contact');
 });
-Route::get('catalogue', function () {
-    return view('public.catalogue');
-})->name('catalogue');
+Route::get('catalogue/{slug}', [CatalogueController::class, 'index'])->name('catalogue');
 
 Route::middleware([
     'auth:sanctum',
