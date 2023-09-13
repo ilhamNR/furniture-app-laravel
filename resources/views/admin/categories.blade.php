@@ -33,7 +33,8 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                     <!--begin::Add category-->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" title="Coming Soon">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1"
+                        title="Coming Soon">
                         <span class="svg-icon svg-icon-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +56,8 @@
                         <span class="me-2" data-kt-docs-table-select="selected_count"></span> Selected
                     </div>
 
-                    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-kt-docs-table-select="delete_selected" title="Coming Soon">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip"
+                        data-kt-docs-table-select="delete_selected" title="Coming Soon">
                         Selection Action
                     </button>
                 </div>
@@ -85,18 +87,57 @@
         </div>
         <!--end::Card-->
     </div>
+    {{-- add category modal  --}}
+    <div class="modal fade" tabindex="-1" id="kt_modal_1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add Categories</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span class="svg-icon svg-icon-2x">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
+                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                            </svg>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    <!--begin::basic autosize textarea-->
+                    <div class="rounded d-flex flex-column">
+                        <label for="category-name" class="form-label">Category Name</label>
+                        <textarea id="category-name" class="form-control" data-kt-autosize="true"></textarea>
+                    </div>
+                    <!--end::basic autosize textarea-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="add-category-button">Add Category</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--end::Content container-->
 @stop
 
 @section('script')
     <script>
+        var dt;
         "use strict";
 
         // Class definition
         var KTDatatablesServerSide = function() {
             // Shared variables
             var table;
-            var dt;
+            // var dt;
             var filterPayment;
 
             // Private functions
@@ -117,8 +158,7 @@
                     ajax: {
                         url: '{!! route('admin.productCategories') !!}',
                     },
-                    columns: [
-                        {
+                    columns: [{
                             data: 'id'
                         },
                         {
@@ -204,6 +244,7 @@
             }
 
 
+
             // Delete category
             var handleDeleteRows = () => {
                 // Select all delete buttons
@@ -213,6 +254,9 @@
                     // Delete button on click
                     d.addEventListener('click', function(e) {
                         e.preventDefault();
+
+                        //reload datatable
+
 
                         // Select parent row
                         const parent = e.target.closest('tr');
@@ -396,9 +440,82 @@
             }
         }();
 
+        // Function to reload the DataTable
+        var reloadDatatable = function() {
+            dt.ajax.reload(null, false); // Use 'false' to keep the current paging position
+        };
         // On document ready
         KTUtil.onDOMContentLoaded(function() {
             KTDatatablesServerSide.init();
+        });
+    </script>
+
+    <script>
+        // Add an event listener to the "Add Category" button
+        document.addEventListener('DOMContentLoaded', function() {
+            const addCategoryButton = document.getElementById('add-category-button');
+            const categoryNameInput = document.getElementById('category-name');
+
+            addCategoryButton.addEventListener('click', function() {
+                const categoryName = categoryNameInput.value;
+
+                // Perform the AJAX POST request
+                fetch('{!! route('admin.createProductcategory') !!}', {
+                        method: 'POST',
+                        headers: {
+                            'Accept' : "application/json",
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Replace with the actual CSRF token
+                        },
+                        body: JSON.stringify({
+                            name: categoryName
+                        }),
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            //reload datatable
+                            reloadDatatable();
+                            // close modal
+                            // Get a reference to the modal element by its ID
+                            var modalElement = document.getElementById('kt_modal_1');
+
+                            // Trigger the 'hide' event to close the modal
+                            var modal = bootstrap.Modal.getInstance(modalElement);
+                            modal.hide();
+                            // Handle a successful response, e.g., close the modal or show a success message
+                            response.json().then(data => {
+                                Swal.fire({
+                                    text: data.data,
+                                    icon: "success",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
+                                // You can add code here to close the modal or perform other actions
+                            });
+                            // You can add code here to close the modal or perform other actions
+                        } else {
+                            response.json().then(data => {
+                                Swal.fire({
+                                    text: data.message,
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
+                                // You can add code here to close the modal or perform other actions
+                            });
+                            // You can add code here to close the modal or perform other actions
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
         });
     </script>
 @stop
