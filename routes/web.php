@@ -32,6 +32,7 @@ Route::get('about-us', function () {
 
 Route::prefix('contact-us')->group(function () {
     Route::get('/', [InquiryController::class, 'index'])->name('contact-us');
+    Route::post('submit', [InquiryController::class, 'sendInquiry'])->name('send-inquiry');
 });
 Route::get('catalogue/{slug}', [CatalogueController::class, 'index'])->name('catalogue');
 
