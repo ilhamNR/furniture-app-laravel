@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LandingPageController;
 
 //public controller
 use App\Http\Controllers\public\CatalogueController;
+use App\Http\Controllers\public\InquiryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,9 @@ Route::get('/', function () {
 Route::get('about-us', function () {
     return view('public.about');
 });
-Route::get('contact-us', function () {
-    return view('public.contact');
+
+Route::prefix('contact-us')->group(function () {
+    Route::get('/', [InquiryController::class, 'index'])->name('contact-us');
 });
 Route::get('catalogue/{slug}', [CatalogueController::class, 'index'])->name('catalogue');
 
