@@ -1,3 +1,4 @@
+// Import Bootstrap and other dependencies
 import "./bootstrap";
 import {
     Collapse,
@@ -13,8 +14,13 @@ import {
 import Alpine from "alpinejs";
 import focus from "@alpinejs/focus";
 import Swal from "sweetalert2";
-window.Alpine = Alpine;
 
+// Configure Alpine.js
+window.Alpine = Alpine;
+Alpine.plugin(focus);
+Alpine.start();
+
+// Initialize tw-elements
 initTE({
     Collapse,
     Ripple,
@@ -25,10 +31,7 @@ initTE({
     Validation,
 });
 
-Alpine.plugin(focus);
-
-Alpine.start();
-
+// Get references to form elements
 const submitbtn = document.getElementById("submit");
 const form1 = document.getElementById("inquiry-form");
 const inputFirstname = document.getElementById("firstname");
@@ -36,10 +39,15 @@ const inputLastname = document.getElementById("lastname");
 const inputEmail = document.getElementById("email");
 const inputPhone = document.getElementById("phone");
 const inputMessage = document.getElementById("message");
-// let formSubmitted = false;
+
+// Initialize a variable to track form validation status
 let valid = true;
+
+// Add event listener for the submit button click
 submitbtn.addEventListener("click", (e) => {
     e.preventDefault();
+
+    // Set validation state for each input element based on 'valid' variable
     inputFirstname.setAttribute(
         "data-te-validation-state",
         valid ? "valid" : "invalid"
@@ -60,17 +68,23 @@ submitbtn.addEventListener("click", (e) => {
         "data-te-validation-state",
         valid ? "valid" : "invalid"
     );
-    // form1.setAttribute("data-te-validated", true);
+
+    // Toggle the 'valid' variable for the next click event
     valid = !valid;
 });
 
+// Add event listener for successful form validation
 form1.addEventListener("valid.te.validation", (e) => {
+    // Create a FormData object from the form
     const formData = new FormData(form1);
+
+    // Send a POST request with the form data
     fetch(form1.action, {
         method: "POST",
         body: formData,
     })
         .then((response) => {
+            // Handle the response data
             response.json().then((data) => {
                 Swal.fire({
                     icon: "success",
@@ -79,16 +93,17 @@ form1.addEventListener("valid.te.validation", (e) => {
                 });
             });
 
+            // Clear input values after successful submission
             form1.querySelectorAll("input, textarea").forEach((element) => {
                 element.value = "";
             });
         })
         .catch((error) => {
+            // Handle errors
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: "Something happens, please try again later",
+                text: "Something happened, please try again later",
             });
         });
-
 });
