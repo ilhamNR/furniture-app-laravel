@@ -12,6 +12,7 @@ import {
 
 import Alpine from "alpinejs";
 import focus from "@alpinejs/focus";
+import Swal from "sweetalert2";
 window.Alpine = Alpine;
 
 initTE({
@@ -70,9 +71,24 @@ form1.addEventListener("valid.te.validation", (e) => {
         body: formData,
     })
         .then((response) => {
-            console.log(response);
+            response.json().then((data) => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: data.data,
+                });
+            });
+
+            form1.querySelectorAll("input, textarea").forEach((element) => {
+                element.value = "";
+            });
         })
         .catch((error) => {
-            // Handle errors (e.g., show an error message)
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Something happens, please try again later",
+            });
         });
+
 });

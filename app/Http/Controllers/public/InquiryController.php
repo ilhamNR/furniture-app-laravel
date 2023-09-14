@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Inquiry;
 use App\Traits\APIResponseTrait;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SendInquiryRequest;
 
 class InquiryController extends Controller
 {
@@ -15,27 +18,23 @@ class InquiryController extends Controller
         return view('public.contact');
     }
 
-    public function sendInquiry(Request $request)
+    public function sendInquiry(SendInquiryRequest $request)
     {
-        // Validate the request
-        $validatedData = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'message' => 'required',
-        ]);
-
         // Create a new Inquiry model instance and save it to the database
-        $inquiry = new Inquiry();
-        $inquiry->first_name = $validatedData['first_name'];
-        $inquiry->last_name = $validatedData['last_name'];
-        $inquiry->email = $validatedData['email'];
-        $inquiry->phone = $validatedData['phone'];
-        $inquiry->message = $validatedData['message'];
-        $inquiry->save();
-
-        // You can return a response here if needed
-        return response()->json(['message' => 'Inquiry submitted successfully'], 200);
+        try {
+            DB::beginTransaction();
+            $inquiry = new Inquiry();
+            $inquiry->first_name = $request['first_name'];
+            $inquiry->last_name = $request['last_name'];
+            $inquiry->email = $request['email'];
+            $inquiry->phone = $request['phone'];
+            $inquiry->message = $request['message'];
+            $inquiry->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error("failed", 401);
+        }
+        return $this->success(200, "Your request has been sent, we will contact you shortly");
     }
 }
