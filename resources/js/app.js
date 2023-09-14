@@ -7,6 +7,7 @@ import {
     Input,
     Modal,
     Carousel,
+    Validation,
 } from "tw-elements";
 
 import Alpine from "alpinejs";
@@ -20,6 +21,7 @@ initTE({
     Input,
     Modal,
     Carousel,
+    Validation,
 });
 
 Alpine.plugin(focus);
