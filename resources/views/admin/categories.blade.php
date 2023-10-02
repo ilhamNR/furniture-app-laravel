@@ -66,13 +66,13 @@
             <!--end::Wrapper-->
 
             <!--begin::Datatable-->
-            <table id="kt_datatable_example_1" class="table align-middle table-row-dashed fs-6 gy-5">
+            <table id="category_table" class="table align-middle table-row-dashed fs-6 gy-5">
                 <thead>
                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                         <th class="w-10px pe-2">
                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                    data-kt-check-target="#kt_datatable_example_1 .form-check-input" value="1" />
+                                    data-kt-check-target="#category_table .form-check-input" value="1" />
                             </div>
                         </th>
                         <th>Name</th>
@@ -142,7 +142,7 @@
 
             // Private functions
             var initDatatable = function() {
-                dt = $("#kt_datatable_example_1").DataTable({
+                dt = $("#category_table").DataTable({
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
@@ -361,7 +361,7 @@
             var initToggleToolbar = function() {
                 // Toggle selected action toolbar
                 // Select all checkboxes
-                const container = document.querySelector('#kt_datatable_example_1');
+                const container = document.querySelector('#category_table');
                 const checkboxes = container.querySelectorAll('[type="checkbox"]');
 
                 // Select elements
@@ -493,7 +493,7 @@
             // Toggle toolbars
             var toggleToolbars = function() {
                 // Define variables
-                const container = document.querySelector('#kt_datatable_example_1');
+                const container = document.querySelector('#category_table');
                 const toolbarBase = document.querySelector('[data-kt-docs-table-toolbar="base"]');
                 const toolbarSelected = document.querySelector('[data-kt-docs-table-toolbar="selected"]');
                 const selectedCount = document.querySelector('[data-kt-docs-table-select="selected_count"]');
