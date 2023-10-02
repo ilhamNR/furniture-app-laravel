@@ -9,7 +9,12 @@ use App\Models\ProductCategory;
 class CatalogueController extends Controller
 {
     public function index($slug){
-        $data = ProductCategory::where('slug', $slug)->first();
+        if ($slug === 'all'){
+            $data = ProductCategory::get();
+        }
+        else {
+            $data = ProductCategory::where('slug', $slug)->get();
+        }
         return view('public.catalogue', compact('data'));
     }
 }

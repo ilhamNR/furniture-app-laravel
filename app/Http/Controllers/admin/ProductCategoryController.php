@@ -22,10 +22,6 @@ class ProductCategoryController extends Controller
             $data = ProductCategory::all();
 
             return Datatables::of($data)
-                // ->addColumn('action', function ($row) {
-                //     // Add any additional columns or actions you need here
-                //     return '<a href="/admin/categories/' . $row->id . '/edit" class="btn btn-primary">Edit</a>';
-                // })
                 ->toJson();
         }
         return view('admin.categories');
