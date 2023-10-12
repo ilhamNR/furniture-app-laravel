@@ -22,23 +22,23 @@
                     </span>
                     <!--end::Svg Icon-->
                     <input type="text" data-kt-docs-table-filter="search"
-                        class="form-control form-control-solid w-250px ps-15" placeholder="Search Customers" />
+                        class="form-control form-control-solid w-250px ps-15" placeholder="Search Products" />
                 </div>
                 <!--end::Search-->
 
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
-                    <!--begin::Add customer-->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" title="Coming Soon">
+                    <!--begin::Add Product-->
+                    <a href="#" type="button" class="btn btn-primary" data-bs-toggle="tooltip" title="Add New Product">
                         <span class="svg-icon svg-icon-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
                                 <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"></rect>
                             </svg>
                         </span>
-                        Add Customer
-                    </button>
-                    <!--end::Add customer-->
+                        Add Product
+                    </a>
+                    <!--end::Add Product-->
                 </div>
                 <!--end::Toolbar-->
 
@@ -57,19 +57,19 @@
             <!--end::Wrapper-->
 
             <!--begin::Datatable-->
-            <table id="kt_datatable_example_1" class="table align-middle table-row-dashed fs-6 gy-5">
+            <table id="product_table" class="table align-middle table-row-dashed fs-6 gy-5">
                 <thead>
                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                         <th class="w-10px pe-2">
                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                    data-kt-check-target="#kt_datatable_example_1 .form-check-input" value="1" />
+                                    data-kt-check-target="#product_table .form-check-input" value="1" />
                             </div>
                         </th>
-                        <th>Customer Name</th>
-                        <th>Email</th>
-                        <th>Company</th>
-                        <th>Payment Method</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Availibility</th>
+                        {{-- <th>Payment Method</th> --}}
                         <th>Created Date</th>
                         <th class="text-end min-w-100px">Actions</th>
                     </tr>
@@ -97,12 +97,12 @@
 
             // Private functions
             var initDatatable = function() {
-                dt = $("#kt_datatable_example_1").DataTable({
+                dt = $("#product_table").DataTable({
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
                     order: [
-                        [5, 'desc']
+                        [1, 'desc']
                     ],
                     stateSave: true,
                     select: {
@@ -111,29 +111,34 @@
                         className: 'row-selected'
                     },
                     ajax: {
-                        url: "https://preview.keenthemes.com/api/datatables.php",
+                        url: '{!! route('admin.products') !!}',
                     },
                     columns: [{
-                            data: 'RecordID'
+                            data: 'id',
+                            searchable: 'false'
                         },
                         {
-                            data: 'Name'
+                            data: 'name'
                         },
                         {
-                            data: 'Email'
+                            data: 'category',
+                            searchable: 'false'
                         },
                         {
-                            data: 'Company'
+                            data: 'is_available',
+                            searchable: 'false'
                         },
                         {
-                            data: 'CreditCardNumber'
+                            data: 'created_at',
+                            searchable: 'false'
                         },
                         {
-                            data: 'Datetime'
+                            data: 'actions',
+                            searchable: 'false'
                         },
-                        {
-                            data: null
-                        },
+                        // {
+                        //     data: null
+                        // },
                     ],
                     columnDefs: [{
                             targets: 0,
@@ -146,12 +151,22 @@
                             }
                         },
                         {
-                            targets: 4,
-                            render: function(data, type, row) {
-                                return `<img src="${hostUrl}media/svg/card-logos/${row.CreditCardType}.svg" class="w-35px me-3" alt="${row.CreditCardType}">` +
-                                    data;
+                            targets: 3,
+                            orderable: false,
+                            render: function(data) {
+                                if (data === 1){
+                                    return '<span class="badge badge-success">In Stock</span>';
+                                }
+                                else{
+                                    return '<span class="badge badge-danger">Out Of Stock</span>'
+                                }
+                            //     return `
+                            // <div class="form-check form-check-sm form-check-custom form-check-solid">
+                            //     <input class="form-check-input" type="checkbox" value="${data}" />
+                            // </div>`;
                             }
                         },
+
                         {
                             targets: -1,
                             data: null,
@@ -247,7 +262,7 @@
                 });
             }
 
-            // Delete customer
+            // Delete Product
             var handleDeleteRows = () => {
                 // Select all delete buttons
                 const deleteButtons = document.querySelectorAll('[data-kt-docs-table-filter="delete_row"]');
@@ -260,12 +275,12 @@
                         // Select parent row
                         const parent = e.target.closest('tr');
 
-                        // Get customer name
-                        const customerName = parent.querySelectorAll('td')[1].innerText;
+                        // Get Product name
+                        const ProductName = parent.querySelectorAll('td')[1].innerText;
 
                         // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
                         Swal.fire({
-                            text: "Are you sure you want to delete " + customerName + "?",
+                            text: "Are you sure you want to delete " + ProductName + "?",
                             icon: "warning",
                             showCancelButton: true,
                             buttonsStyling: false,
@@ -279,7 +294,7 @@
                             if (result.value) {
                                 // Simulate delete request -- for demo purpose only
                                 Swal.fire({
-                                    text: "Deleting " + customerName,
+                                    text: "Deleting " + ProductName,
                                     icon: "info",
                                     buttonsStyling: false,
                                     showConfirmButton: false,
@@ -287,7 +302,7 @@
                                 }).then(function() {
                                     Swal.fire({
                                         text: "You have deleted " +
-                                            customerName + "!.",
+                                            ProductName + "!.",
                                         icon: "success",
                                         buttonsStyling: false,
                                         confirmButtonText: "Ok, got it!",
@@ -301,7 +316,7 @@
                                 });
                             } else if (result.dismiss === 'cancel') {
                                 Swal.fire({
-                                    text: customerName + " was not deleted.",
+                                    text: ProductName + " was not deleted.",
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "Ok, got it!",
@@ -334,7 +349,7 @@
             var initToggleToolbar = function() {
                 // Toggle selected action toolbar
                 // Select all checkboxes
-                const container = document.querySelector('#kt_datatable_example_1');
+                const container = document.querySelector('#product_table');
                 const checkboxes = container.querySelectorAll('[type="checkbox"]');
 
                 // Select elements
@@ -354,7 +369,7 @@
                 deleteSelected.addEventListener('click', function() {
                     // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
                     Swal.fire({
-                        text: "Are you sure you want to delete selected customers?",
+                        text: "Are you sure you want to delete selected Products?",
                         icon: "warning",
                         showCancelButton: true,
                         buttonsStyling: false,
@@ -369,14 +384,14 @@
                         if (result.value) {
                             // Simulate delete request -- for demo purpose only
                             Swal.fire({
-                                text: "Deleting selected customers",
+                                text: "Deleting selected Products",
                                 icon: "info",
                                 buttonsStyling: false,
                                 showConfirmButton: false,
                                 timer: 2000
                             }).then(function() {
                                 Swal.fire({
-                                    text: "You have deleted all selected customers!.",
+                                    text: "You have deleted all selected Products!.",
                                     icon: "success",
                                     buttonsStyling: false,
                                     confirmButtonText: "Ok, got it!",
@@ -395,7 +410,7 @@
                             });
                         } else if (result.dismiss === 'cancel') {
                             Swal.fire({
-                                text: "Selected customers was not deleted.",
+                                text: "Selected Products was not deleted.",
                                 icon: "error",
                                 buttonsStyling: false,
                                 confirmButtonText: "Ok, got it!",
@@ -411,7 +426,7 @@
             // Toggle toolbars
             var toggleToolbars = function() {
                 // Define variables
-                const container = document.querySelector('#kt_datatable_example_1');
+                const container = document.querySelector('#product_table');
                 const toolbarBase = document.querySelector('[data-kt-docs-table-toolbar="base"]');
                 const toolbarSelected = document.querySelector('[data-kt-docs-table-toolbar="selected"]');
                 const selectedCount = document.querySelector('[data-kt-docs-table-select="selected_count"]');
