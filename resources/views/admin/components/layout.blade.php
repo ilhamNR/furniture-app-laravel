@@ -47,8 +47,8 @@ License: For each use you must have a valid license purchased only from above li
 
     <!--end::Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
-    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="{{url('admin/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('admin/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 </head>
 <!--end::Head-->
@@ -183,8 +183,8 @@ License: For each use you must have a valid license purchased only from above li
             var hostUrl = "assets/";
         </script>
         <!--begin::Global Javascript Bundle(used by all pages)-->
-        <script src="assets/plugins/global/plugins.bundle.js"></script>
-        <script src="assets/js/scripts.bundle.js"></script>
+        <script src="{{url('admin/assets/plugins/global/plugins.bundle.js')}}"></script>
+        <script src="{{url('admin/assets/js/scripts.bundle.js')}}"></script>
         <!--end::Global Javascript Bundle-->
         <!--begin::Vendors Javascript(used by this page)-->
         <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -198,11 +198,11 @@ License: For each use you must have a valid license purchased only from above li
         <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
         <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
         <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
-        <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <script src="{{url('admin/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
         <!--end::Vendors Javascript-->
         <!--begin::Custom Javascript(used by this page)-->
-        <script src="assets/js/widgets.bundle.js"></script>
-        <script src="assets/js/custom/widgets.js"></script>
+        <script src="{{url('admin/assets/js/widgets.bundle.js')}}"></script>
+        <script src="{{url('admin/assets/js/custom/widgets.js')}}"></script>
 
         <!--end::Custom Javascript-->
         @yield('script')
