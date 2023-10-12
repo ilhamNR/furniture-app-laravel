@@ -6,10 +6,12 @@ use App\Http\Controllers\Admin\WebSettingController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LandingPageController;
+use App\Http\Controllers\admin\AdminAboutUsController;
 
 //public controller
 use App\Http\Controllers\public\CatalogueController;
 use App\Http\Controllers\public\InquiryController;
+use App\Http\Controllers\public\AboutUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +28,7 @@ Route::get('/', function () {
     return view('public.landing');
 });
 
-Route::get('about-us', function () {
-    return view('public.about');
-});
+Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us');
 
 Route::prefix('contact-us')->group(function () {
     Route::get('/', [InquiryController::class, 'index'])->name('contact-us');
@@ -46,7 +46,11 @@ Route::middleware([
             return view('admin.dashboard');
         })->name('admin.dashboard');
         Route::get('landing-page', [LandingPageController::class, 'index'])->name('admin.landingPage');
-        Route::get('about-us', [WebSettingController::class, 'aboutUs'])->name('admin.aboutUs');
+        Route::prefix('about-us')->group(function () {
+            Route::get('/', [WebSettingController::class, 'aboutUs'])->name('admin.aboutUs');
+            Route::post('/save', [WebSettingController::class, 'updateAboutus'])->name('admin.aboutUs.update');
+        });
+
         Route::get('categories', [ProductCategoryController::class, 'index'])->name('admin.productCategories');
         Route::prefix('categories')->group(function () {
             Route::post('create', [ProductCategoryController::class, 'store'])->name('admin.createProductcategory');

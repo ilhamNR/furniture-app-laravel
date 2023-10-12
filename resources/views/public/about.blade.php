@@ -8,6 +8,7 @@
             <h1>About us</h1>
         </div>
         <div class="mx-8 font-light">
+            {!! $about_us !!}
         </div>
 
 
