@@ -23,7 +23,8 @@ class ProductController extends Controller
             return Datatables::of($data)
                 ->toJson();
         }
-        return view('admin.product.index');
+        $category = ProductCategory::all();
+        return view('admin.product.index', compact('category'));
     }
 
     public function create(Request $request)
