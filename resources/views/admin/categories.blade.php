@@ -560,7 +560,7 @@
                         headers: {
                             'Accept': "application/json",
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Replace with the actual CSRF token
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         },
                         body: JSON.stringify({
                             name: categoryName

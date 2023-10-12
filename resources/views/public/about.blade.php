@@ -10,8 +10,5 @@
         <div class="mx-8 font-light">
             {!! $about_us !!}
         </div>
-
-
     </div>
-
 @stop

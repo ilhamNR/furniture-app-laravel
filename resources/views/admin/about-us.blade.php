@@ -14,9 +14,9 @@
                 </div>
                 <div class="card-body p-0">
                     <!--begin::Form-->
-                    <form id="kt_inbox_compose_form" method="POST">
+                    <form id="kt_inbox_compose_form" action="{{ route('admin.aboutUs.update') }}" method="POST">
                         @csrf
-                        <textarea id="kt_docs_tinymce_basic" name="kt_docs_tinymce_basic" class="tox-target">
+                        <textarea id="about-us-form" class="tox-target">
                             {!! $about_us !!}
                         </textarea>
                         <!--begin::Footer-->
@@ -26,11 +26,8 @@
                                 <!--begin::Send-->
                                 <div class="btn-group me-4">
                                     <!--begin::Submit-->
-                                    <span class="btn btn-primary fs-bold px-6" data-kt-inbox-form="send">
-                                        <span class="indicator-label">Send</span>
-                                        <span class="indicator-progress">Please wait...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                    </span>
+                                    <button type="button" class="btn btn-primary fs-bold px-6"
+                                        id="save-about-us-button">Save</button>
                                     <!--end::Submit-->
                                 </div>
                                 <!--end::Send-->
@@ -54,7 +51,7 @@
     <script src="assets/plugins/custom/tinymce/tinymce.bundle.js"></script>
     <script>
         var options = {
-            selector: "#kt_docs_tinymce_basic",
+            selector: "#about-us-form",
             height: "480"
         };
 
@@ -64,5 +61,50 @@
         }
 
         tinymce.init(options);
+    </script>
+    <script>
+        const saveButton = document.getElementById('save-about-us-button');
+
+        saveButton.addEventListener('click', function() {
+            const aboutUsValue = tinymce.get("about-us-form").getContent();
+            const data = {
+                value: aboutUsValue
+            };
+
+            fetch('{{ route('admin.aboutUs.update') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    Swal.fire({
+                        text: data.data,
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                })
+                .catch(error => {
+                    // Handle errors (e.g., network error, server error)
+                    Swal.fire({
+                        text: error,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                });
+        });
     </script>
 @stop

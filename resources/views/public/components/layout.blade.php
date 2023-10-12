@@ -32,7 +32,7 @@
     <!-- Main navigation container -->
     @include('public.components.navbar')
 
-    @yield('content');
+    @yield('content')
 
     <!-- Footer container -->
     @include('public.components.footer')
