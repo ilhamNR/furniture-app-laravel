@@ -33,4 +33,28 @@ class ProductController extends Controller
         // dd($category);
         return view('admin.product.create', compact('category'));
     }
+
+    public function uploadImage(Request $request)
+    {
+                // Validate the uploaded file
+                $request->validate([
+                    'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', // Adjust file types and size as needed
+                ]);
+
+                // Get the uploaded file
+                $image = $request->file('file');
+
+                // Generate a unique filename
+                $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+
+                // Save the file to the private folder
+                $image->storeAs('private', $filename, 'local'); // Assumes you've set up the "local" disk in config/filesystems.php
+
+                // Return the filename or the full URL if needed
+                return response()->json(['filename' => $filename]);
+    }
+    public function deleteTemporaryImage(Request $request)
+    {
+
+    }
 }

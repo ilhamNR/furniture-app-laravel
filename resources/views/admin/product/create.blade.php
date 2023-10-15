@@ -31,6 +31,7 @@
                             <!--begin::Col-->
                             <div class="col-lg-8">
                                 <!--begin::Form-->
+                                <input type="text" hidden id="thumbnail_data" name="thumbnail_data">
                                 <form class="form" action="#" method="post">
                                     <!--begin::Input group-->
                                     <div class="fv-row">
@@ -63,6 +64,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
+
                         <!--begin::Input group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -70,6 +72,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
+                                <input type="text" hidden id="photos_data" name="photos" value="">
                                 <!--begin::Form-->
                                 <form class="form" action="#" method="post">
                                     <!--begin::Input group-->
@@ -86,7 +89,8 @@
                                                 <div class="ms-4">
                                                     <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drop picture here or click
                                                         to upload.</h3>
-                                                    <span class="fs-7 fw-semibold text-gray-400">Upload 10 pictures maximum</span>
+                                                    <span class="fs-7 fw-semibold text-gray-400">Upload 10 pictures
+                                                        maximum</span>
                                                 </div>
                                                 <!--end::Info-->
                                             </div>
@@ -121,8 +125,6 @@
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label fw-semibold fs-6">
                                 <span class="required">Price</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                    title="Phone number must be active"></i>
                             </label>
                             <!--end::Label-->
                             <!--begin::Col-->
@@ -139,8 +141,7 @@
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label fw-semibold fs-6">
                                 <span class="required">Category</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                    title="Country of origination"></i>
+
                             </label>
                             <!--end::Label-->
                             <!--begin::Col-->
@@ -220,34 +221,97 @@
         tinymce.init(options);
     </script>
     <script>
+        var thumbnailInput = document.getElementById("thumbnail_data");
+
+        // Parse the existing array from the input value
+        var thumbnailArray = thumbnailInput.value ? JSON.parse(thumbnailInput.value) : [];
+
         var thumbnailDropzone = new Dropzone("#thumbnail_upload_zone", {
-            url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
+            url: '{!! route('admin.uploadImage') !!}', // Set the url for your upload script location
             paramName: "file", // The name that will be used to transfer the file
+            headers: {
+                'X-CSRF-TOKEN': '{!! csrf_token() !!}'
+            },
             maxFiles: 1,
             maxFilesize: 10, // MB
             addRemoveLinks: true,
-            accept: function(file, done) {
-                if (file.name == "wow.jpg") {
-                    done("Naha, you don't.");
-                } else {
-                    done();
+            success: function(file, response) {
+                file.serverFilename = response.filename;
+
+                // Add values to the array
+                thumbnailArray.push(file.serverFilename);
+
+                // Update the input value with the modified array
+                thumbnailInput.value = JSON.stringify(thumbnailArray);
+                console.log(file);
+            },
+            removedfile: function(file) {
+
+                // Function to remove a specific value from the array
+                function removeValueFromArray(value) {
+                    var index = thumbnailArray.indexOf(value);
+                    if (index > -1) {
+                        thumbnailArray.splice(index, 1); // Remove the value at the specified index
+                    }
                 }
+
+                // Remove a specific value from the array (e.g., 'photo1.jpg')
+                removeValueFromArray(file.serverFilename);
+
+                // Update the input value with the modified array
+                thumbnailInput.value = JSON.stringify(photosArray);
+                // remove picture from dropzone
+                var _ref;
+                return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) :
+                    void 0;
             }
         });
     </script>
     <script>
+        // Get the input element
+        var photosInput = document.getElementById("photos_data");
+
+        // Parse the existing array from the input value
+        var photosArray = photosInput.value ? JSON.parse(photosInput.value) : [];
+
         var productDropzone = new Dropzone("#photo_upload_zone", {
-            url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
+            url: '{!! route('admin.uploadImage') !!}', // Set the url for your upload script location
             paramName: "file", // The name that will be used to transfer the file
             maxFiles: 10,
             maxFilesize: 10, // MB
             addRemoveLinks: true,
-            accept: function(file, done) {
-                if (file.name == "wow.jpg") {
-                    done("Naha, you don't.");
-                } else {
-                    done();
+            headers: {
+                'X-CSRF-TOKEN': '{!! csrf_token() !!}'
+            },
+            success: function(file, response) {
+                file.serverFilename = response.filename;
+
+                // Add values to the array
+                photosArray.push(file.serverFilename);
+
+                // Update the input value with the modified array
+                photosInput.value = JSON.stringify(photosArray);
+                console.log(file);
+            },
+            removedfile: function(file) {
+
+                // Function to remove a specific value from the array
+                function removeValueFromArray(value) {
+                    var index = photosArray.indexOf(value);
+                    if (index > -1) {
+                        photosArray.splice(index, 1); // Remove the value at the specified index
+                    }
                 }
+
+                // Remove a specific value from the array (e.g., 'photo1.jpg')
+                removeValueFromArray(file.serverFilename);
+
+                // Update the input value with the modified array
+                photosInput.value = JSON.stringify(photosArray);
+                // remove picture from dropzone
+                var _ref;
+                return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) :
+                    void 0;
             }
         });
     </script>

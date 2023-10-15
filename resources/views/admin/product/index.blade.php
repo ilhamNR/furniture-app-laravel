@@ -127,7 +127,7 @@
 
                     <button type="button" class="btn btn-danger" data-kt-docs-table-select="delete_selected"
                         data-bs-toggle="tooltip" title="Coming Soon">
-                        Selection Action
+                        Delete Selected
                     </button>
                 </div>
                 <!--end::Group actions-->
