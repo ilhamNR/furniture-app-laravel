@@ -20,7 +20,8 @@
             <!--begin::Content-->
             <div id="kt_account_settings_profile_details" class="collapse show">
                 <!--begin::Form-->
-                <form id="kt_account_profile_details_form" class="form">
+                <form id="add_product_form" class="form" action="{{ route('admin.saveProduct') }}" method="POST">
+                    @csrf
                     <!--begin::Card body-->
                     <div class="card-body border-top p-9">
                         <!--begin::Input group-->
@@ -72,7 +73,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
-                                <input type="text" hidden id="photos_data" name="photos" value="">
+                                <input type="text" hidden id="photos_data" name="photos_data" value="">
                                 <!--begin::Form-->
                                 <form class="form" action="#" method="post">
                                     <!--begin::Input group-->
@@ -114,8 +115,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
-                                <input type="text" name="company" class="form-control form-control-lg form-control-solid"
-                                    placeholder="Product name" value="" />
+                                <input type="text" name="name" id="name"
+                                    class="form-control form-control-lg form-control-solid" placeholder="Product name"
+                                    value="" />
                             </div>
                             <!--end::Col-->
                         </div>
@@ -129,8 +131,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
-                                <input type="tel" name="price" class="form-control form-control-lg form-control-solid"
-                                    placeholder="Price" value="" />
+                                <input type="number" name="price" id="price"
+                                    class="form-control form-control-lg form-control-solid" placeholder="Price"
+                                    value="" />
                             </div>
                             <!--end::Col-->
                         </div>
@@ -146,9 +149,10 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
-                                <select name="country" aria-label="Select a Category" data-control="select2"
+                                <select name="category" aria-label="Select a Category" data-control="select2"
                                     data-placeholder="Select a category..."
                                     class="form-select form-select-solid form-select-lg fw-semibold">
+                                    <option selected value="">Select a category</option>
                                     @foreach ($category as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
@@ -164,7 +168,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
-                                <textarea id="kt_docs_tinymce_basic" name="kt_docs_tinymce_basic" class="tox-target">
+                                <textarea id="description" name="description" class="tox-target">
                                 </textarea>
                             </div>
                             <!--end::Col-->
@@ -178,7 +182,7 @@
                             <!--begin::Label-->
                             <div class="col-lg-8 d-flex align-items-center">
                                 <div class="form-check form-check-solid form-switch fv-row">
-                                    <input class="form-check-input w-45px h-30px" type="checkbox" id="allowmarketing"
+                                    <input class="form-check-input w-45px h-30px" type="checkbox" name="is_available" id="is_available"
                                         checked="checked" />
                                     <label class="form-check-label" for="allowmarketing"></label>
                                 </div>
@@ -191,8 +195,8 @@
                     <!--begin::Actions-->
                     <div class="card-footer d-flex justify-content-end py-6 px-9">
                         <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
-                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save
-                            Changes</button>
+                        <button type="button" class="btn btn-primary" id="kt_account_profile_details_submit">Save
+                            Product</button>
                     </div>
                     <!--end::Actions-->
                 </form>
@@ -209,7 +213,7 @@
     <script src="{{ url('admin/assets/plugins/custom/tinymce/tinymce.bundle.js') }}"></script>
     <script>
         var options = {
-            selector: "#kt_docs_tinymce_basic",
+            selector: "#description",
             height: "480"
         };
 
@@ -312,6 +316,123 @@
                 var _ref;
                 return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) :
                     void 0;
+            }
+        });
+    </script>
+    {{-- <script>
+        //save the product
+        // Wait for the document to load before adding the event listener
+        document.addEventListener("DOMContentLoaded", function() {
+            // Find the "Save Product" button by its ID
+            var saveButton = document.getElementById("kt_account_profile_details_submit");
+
+            // Find the form by its ID
+            var form = document.getElementById("add_product_form");
+
+            // Add a click event listener to the button
+            saveButton.addEventListener("click", function() {
+                // Trigger the form submission when the button is clicked
+                form.submit();
+            });
+        });
+    </script> --}}
+    <script>
+        // Define form element
+        const form = document.getElementById('add_product_form');
+
+        // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+        var validator = FormValidation.formValidation(
+            form, {
+                fields: {
+                    // 'thumbnail_data': {
+                    //     validators: {
+                    //         notEmpty: {
+                    //             message: 'Thumbnail is required'
+                    //         }
+                    //     }
+                    // },
+                    'name': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Name is required'
+                            }
+                        }
+                    },
+                    'price': {
+                        validators: {
+                            notEmpty: {
+                                message: 'price is required'
+                            }
+                        }
+                    },
+                    'category': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Category is required'
+                            }
+                        }
+                    },
+                    'description': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Description is required'
+                            }
+                        }
+                    },
+                },
+
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: '.fv-row',
+                        eleInvalidClass: '',
+                        eleValidClass: ''
+                    })
+                }
+            }
+        );
+
+        // Submit button handler
+        const submitButton = document.getElementById('kt_account_profile_details_submit');
+        submitButton.addEventListener('click', function(e) {
+            // Prevent default button action
+            e.preventDefault();
+
+            // Validate form before submit
+            if (validator) {
+                validator.validate().then(function(status) {
+                    console.log('validated!');
+
+                    if (status == 'Valid') {
+                        // Show loading indication
+                        submitButton.setAttribute('data-kt-indicator', 'on');
+
+                        // Disable button to avoid multiple click
+                        submitButton.disabled = true;
+
+                        // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                        setTimeout(function() {
+                            // Remove loading indication
+                            submitButton.removeAttribute('data-kt-indicator');
+
+                            // Enable button
+                            submitButton.disabled = false;
+
+                            // Show popup confirmation
+                            Swal.fire({
+                                text: "Form has been successfully submitted!",
+                                icon: "success",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+
+                            form.submit(); // Submit form
+                        }, 2000);
+                    }
+                });
             }
         });
     </script>
