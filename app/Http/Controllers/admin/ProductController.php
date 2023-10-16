@@ -16,26 +16,33 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     use APIResponseTrait;
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $data = Product::all();
+
+            // Map product data with category name
             $data = $data->map(function ($item) {
+                $thumbnail = ProductImage::where('product_id', $item->id)->where('is_thumbnail', 1)->value('file_name');
+                $item->thumbnail = url('storage/product_img/'. $thumbnail);
                 $item->category = ProductCategory::findOrFail($item->product_category_id)->name;
                 return ($item);
             });
-            // dd($data);
-            return Datatables::of($data)
-                ->toJson();
+
+            // Return the data as JSON using DataTables
+            return Datatables::of($data)->toJson();
         }
+
+        // Load product categories for the view
         $category = ProductCategory::all();
         return view('admin.product.index', compact('category'));
     }
 
     public function create(Request $request)
     {
+        // Load product categories for the view
         $category = ProductCategory::all();
-        // dd($category);
         return view('admin.product.create', compact('category'));
     }
 
@@ -58,38 +65,40 @@ class ProductController extends Controller
         // Return the filename or the full URL if needed
         return response()->json(['filename' => $filename]);
     }
+
     public function deleteTemporaryImage(Request $request)
     {
+        // Implement image deletion logic if needed
     }
 
     public function moveImageToPublic($product_id, $filename, $is_thumbnail)
     {
-        if ($is_thumbnail == TRUE){
-            $is_thumbnail = 1;
-        }
-        else{
-            $is_thumbnail= 0;
-        }
+        // Convert boolean is_thumbnail to 1 or 0
+        $is_thumbnail = $is_thumbnail ? 1 : 0;
+
         // Get the file path from the private folder
         $privateFilePath = 'private/' . $filename;
+
         // Define the new public path for the file
         $publicPath = 'public/product_img/' . $filename;
+
         // Move the file to the public folder
         Storage::move($privateFilePath, $publicPath);
-        // Make product image entity
+
+        // Create a product image entity
         ProductImage::create([
             'product_id' => $product_id,
             'file_name' => $filename,
             'is_thumbnail' => $is_thumbnail
         ]);
     }
+
     public function saveProduct(Request $request)
     {
-        if ($request->is_available == 'on') {
-            $is_available = 1;
-        } else {
-            $is_available = 0;
-        }
+        // Determine is_available based on checkbox value
+        $is_available = $request->is_available == 'on' ? 1 : 0;
+
+        // Decode JSON data from the request
         $photos_data = json_decode($request->photos_data, true);
         $thumbnail_data = json_decode($request->thumbnail_data, true);
 
@@ -102,17 +111,22 @@ class ProductController extends Controller
                 'description' => $request->description,
                 'is_available' => $is_available
             ]);
+
+            // Move product photos and thumbnails to the public folder
             foreach ($photos_data as $photo) {
-                ProductController::moveImageToPublic($data->id, $photo, FALSE );
+                ProductController::moveImageToPublic($data->id, $photo, false);
             };
+
             foreach ($thumbnail_data as $thumbnail) {
-                ProductController::moveImageToPublic($data->id, $thumbnail, TRUE );
+                ProductController::moveImageToPublic($data->id, $thumbnail, true);
             };
-            // dd($data->id);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->error('Something Wrong', 422);
+            return $this->error('Something Went Wrong', 422);
         }
+
+        // Handle successful product creation
     }
 }

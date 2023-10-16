@@ -144,6 +144,7 @@
                                     data-kt-check-target="#product_table .form-check-input" value="1" />
                             </div>
                         </th>
+                        <th>Thumbnail</th>
                         <th>Product Name</th>
                         <th>Category</th>
                         <th>Availibility</th>
@@ -196,6 +197,9 @@
                             searchable: 'false'
                         },
                         {
+                            data: 'thumbnail'
+                        },
+                        {
                             data: 'name'
                         },
                         {
@@ -229,7 +233,16 @@
                             }
                         },
                         {
-                            targets: 3,
+                            targets: 1,
+                            orderable:false,
+                            render: function(data)
+                            {
+                                return `
+                                <img src="${data}" class="h-100 w-100">`;
+                            }
+                        },
+                        {
+                            targets: 4,
                             orderable: false,
                             render: function(data) {
                                 if (data === 1) {
@@ -306,7 +319,7 @@
             var handleSearchDatatable = function() {
                 const filterSearch = document.querySelector('[data-kt-docs-table-filter="search"]');
                 filterSearch.addEventListener('keyup', function(e) {
-                    dt.columns(1).search(e.target.value).draw();
+                    dt.columns(2).search(e.target.value).draw();
                 });
             }
 
@@ -335,7 +348,7 @@
                     });
 
                     // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
-                    dt.columns(2).search(categoryValue).draw();
+                    dt.columns(3).search(categoryValue).draw();
                 });
             }
 

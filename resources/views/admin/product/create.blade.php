@@ -27,7 +27,7 @@
                         <!--begin::Input group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label fw-semibold fs-6">Product Thumbnail</label>
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Product Thumbnail</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
@@ -152,7 +152,7 @@
                                 <select name="category" aria-label="Select a Category" data-control="select2"
                                     data-placeholder="Select a category..."
                                     class="form-select form-select-solid form-select-lg fw-semibold">
-                                    <option selected value="">Select a category</option>
+                                    <option value="">Select a category</option>
                                     @foreach ($category as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
@@ -182,8 +182,8 @@
                             <!--begin::Label-->
                             <div class="col-lg-8 d-flex align-items-center">
                                 <div class="form-check form-check-solid form-switch fv-row">
-                                    <input class="form-check-input w-45px h-30px" type="checkbox" name="is_available" id="is_available"
-                                        checked="checked" />
+                                    <input class="form-check-input w-45px h-30px" type="checkbox" name="is_available"
+                                        id="is_available" checked="checked" />
                                     <label class="form-check-label" for="allowmarketing"></label>
                                 </div>
                             </div>
@@ -212,45 +212,51 @@
 @section('script')
     <script src="{{ url('admin/assets/plugins/custom/tinymce/tinymce.bundle.js') }}"></script>
     <script>
+        // Configuration options for TinyMCE
         var options = {
-            selector: "#description",
-            height: "480"
+            selector: "#description", // The CSS selector of the textarea to convert into an editor.
+            height: "480" // The height of the editor in pixels.
         };
 
+        // Check if the website's theme mode is dark
         if (KTThemeMode.getMode() === "dark") {
-            options["skin"] = "oxide-dark";
-            options["content_css"] = "dark";
+            // If the theme is dark, set some additional options for a dark theme.
+            options["skin"] = "oxide-dark"; // Specify the dark skin for TinyMCE.
+            options["content_css"] = "dark"; // Use dark-themed content CSS.
         }
 
+        // Initialize the TinyMCE editor with the specified options.
         tinymce.init(options);
     </script>
+
     <script>
+        // Get the HTML input element with the id "thumbnail_data"
         var thumbnailInput = document.getElementById("thumbnail_data");
 
-        // Parse the existing array from the input value
+        // Parse the existing array from the input value (if available)
         var thumbnailArray = thumbnailInput.value ? JSON.parse(thumbnailInput.value) : [];
 
+        // Initialize a Dropzone instance for image uploads
         var thumbnailDropzone = new Dropzone("#thumbnail_upload_zone", {
-            url: '{!! route('admin.uploadImage') !!}', // Set the url for your upload script location
-            paramName: "file", // The name that will be used to transfer the file
+            url: '{!! route('admin.uploadImage') !!}', // Specify the URL for your image upload script
+            paramName: "file", // The name used to transfer the file
             headers: {
-                'X-CSRF-TOKEN': '{!! csrf_token() !!}'
+                'X-CSRF-TOKEN': '{!! csrf_token() !!}' // Include the CSRF token in the headers
             },
-            maxFiles: 1,
-            maxFilesize: 10, // MB
-            addRemoveLinks: true,
+            maxFiles: 1, // Maximum number of files to upload
+            maxFilesize: 10, // Maximum file size in megabytes
+            addRemoveLinks: true, // Add links to remove uploaded files
             success: function(file, response) {
                 file.serverFilename = response.filename;
 
-                // Add values to the array
+                // Add the server-generated filename to the array
                 thumbnailArray.push(file.serverFilename);
 
-                // Update the input value with the modified array
+                // Update the input value with the modified array as JSON
                 thumbnailInput.value = JSON.stringify(thumbnailArray);
                 console.log(file);
             },
             removedfile: function(file) {
-
                 // Function to remove a specific value from the array
                 function removeValueFromArray(value) {
                     var index = thumbnailArray.indexOf(value);
@@ -259,46 +265,48 @@
                     }
                 }
 
-                // Remove a specific value from the array (e.g., 'photo1.jpg')
+                // Remove the file's server-generated filename from the array
                 removeValueFromArray(file.serverFilename);
 
-                // Update the input value with the modified array
-                thumbnailInput.value = JSON.stringify(photosArray);
-                // remove picture from dropzone
+                // Update the input value with the modified array as JSON
+                thumbnailInput.value = JSON.stringify(thumbnailArray);
+
+                // Remove the file from the Dropzone display
                 var _ref;
                 return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) :
                     void 0;
             }
         });
     </script>
+
     <script>
         // Get the input element
         var photosInput = document.getElementById("photos_data");
 
-        // Parse the existing array from the input value
+        // Parse the existing array from the input value (if available)
         var photosArray = photosInput.value ? JSON.parse(photosInput.value) : [];
 
+        // Initialize a Dropzone instance for image uploads
         var productDropzone = new Dropzone("#photo_upload_zone", {
-            url: '{!! route('admin.uploadImage') !!}', // Set the url for your upload script location
-            paramName: "file", // The name that will be used to transfer the file
-            maxFiles: 10,
-            maxFilesize: 10, // MB
-            addRemoveLinks: true,
+            url: '{!! route('admin.uploadImage') !!}', // Specify the URL for your image upload script
+            paramName: "file", // The name used to transfer the file
+            maxFiles: 10, // Maximum number of files to upload
+            maxFilesize: 10, // Maximum file size in megabytes
+            addRemoveLinks: true, // Add links to remove uploaded files
             headers: {
-                'X-CSRF-TOKEN': '{!! csrf_token() !!}'
+                'X-CSRF-TOKEN': '{!! csrf_token() !!}' // Include the CSRF token in the headers
             },
             success: function(file, response) {
                 file.serverFilename = response.filename;
 
-                // Add values to the array
+                // Add the server-generated filename to the array
                 photosArray.push(file.serverFilename);
 
-                // Update the input value with the modified array
+                // Update the input value with the modified array as JSON
                 photosInput.value = JSON.stringify(photosArray);
                 console.log(file);
             },
             removedfile: function(file) {
-
                 // Function to remove a specific value from the array
                 function removeValueFromArray(value) {
                     var index = photosArray.indexOf(value);
@@ -307,50 +315,28 @@
                     }
                 }
 
-                // Remove a specific value from the array (e.g., 'photo1.jpg')
+                // Remove the file's server-generated filename from the array
                 removeValueFromArray(file.serverFilename);
 
-                // Update the input value with the modified array
+                // Update the input value with the modified array as JSON
                 photosInput.value = JSON.stringify(photosArray);
-                // remove picture from dropzone
+
+                // Remove the file from the Dropzone display
                 var _ref;
                 return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) :
                     void 0;
             }
         });
     </script>
-    {{-- <script>
-        //save the product
-        // Wait for the document to load before adding the event listener
-        document.addEventListener("DOMContentLoaded", function() {
-            // Find the "Save Product" button by its ID
-            var saveButton = document.getElementById("kt_account_profile_details_submit");
 
-            // Find the form by its ID
-            var form = document.getElementById("add_product_form");
-
-            // Add a click event listener to the button
-            saveButton.addEventListener("click", function() {
-                // Trigger the form submission when the button is clicked
-                form.submit();
-            });
-        });
-    </script> --}}
     <script>
-        // Define form element
+        // Define the form element
         const form = document.getElementById('add_product_form');
 
-        // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+        // Initialize form validation rules using the FormValidation plugin
         var validator = FormValidation.formValidation(
             form, {
                 fields: {
-                    // 'thumbnail_data': {
-                    //     validators: {
-                    //         notEmpty: {
-                    //             message: 'Thumbnail is required'
-                    //         }
-                    //     }
-                    // },
                     'name': {
                         validators: {
                             notEmpty: {
@@ -361,7 +347,7 @@
                     'price': {
                         validators: {
                             notEmpty: {
-                                message: 'price is required'
+                                message: 'Price is required'
                             }
                         }
                     },
@@ -380,7 +366,6 @@
                         }
                     },
                 },
-
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
                     bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -395,10 +380,10 @@
         // Submit button handler
         const submitButton = document.getElementById('kt_account_profile_details_submit');
         submitButton.addEventListener('click', function(e) {
-            // Prevent default button action
+            // Prevent the default button action
             e.preventDefault();
 
-            // Validate form before submit
+            // Validate the form before submission
             if (validator) {
                 validator.validate().then(function(status) {
                     console.log('validated!');
@@ -407,18 +392,18 @@
                         // Show loading indication
                         submitButton.setAttribute('data-kt-indicator', 'on');
 
-                        // Disable button to avoid multiple click
+                        // Disable the button to prevent multiple clicks
                         submitButton.disabled = true;
 
-                        // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                        // Simulate form submission with a delay
                         setTimeout(function() {
                             // Remove loading indication
                             submitButton.removeAttribute('data-kt-indicator');
 
-                            // Enable button
+                            // Enable the button
                             submitButton.disabled = false;
 
-                            // Show popup confirmation
+                            // Show a success popup confirmation
                             Swal.fire({
                                 text: "Form has been successfully submitted!",
                                 icon: "success",
@@ -429,11 +414,12 @@
                                 }
                             });
 
-                            form.submit(); // Submit form
+                            form.submit(); // Submit the form
                         }, 2000);
                     }
                 });
             }
         });
     </script>
+
 @stop
