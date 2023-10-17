@@ -105,7 +105,7 @@ class ProductController extends Controller
         $photos_data = json_decode($request->photos_data, true);
         $thumbnail_data = json_decode($request->thumbnail_data, true);
 
-        try {
+        // try {
             DB::beginTransaction();
             $data = Product::create([
                 'name' => $request->name,
@@ -116,20 +116,23 @@ class ProductController extends Controller
             ]);
 
             // Move product photos and thumbnails to the public folder
-            foreach ($photos_data as $photo) {
-                ProductController::moveImageToPublic($data->id, $photo, false);
-            };
+            if (isset($photos_data)){
+                foreach ($photos_data as $photo) {
+                    ProductController::moveImageToPublic($data->id, $photo, false);
+                };
+            }
 
             foreach ($thumbnail_data as $thumbnail) {
                 ProductController::moveImageToPublic($data->id, $thumbnail, true);
             };
 
             DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->error('Something Went Wrong', 422);
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return $this->error('Something Went Wrong', 422);
+        // }
 
         // Handle successful product creation
+        return $this->success(200,'Product added sucessfully!');
     }
 }
