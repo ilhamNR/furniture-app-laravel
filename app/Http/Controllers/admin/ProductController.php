@@ -20,14 +20,16 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Product::all();
+            $data = Product::with('category', 'thumbnailImage')
+                ->get(['id', 'name', 'product_category_id', 'price', 'is_available', 'description', 'created_at', 'updated_at']);
 
-            // Map product data with category name
+            // Transform the data for the JSON response
             $data = $data->map(function ($item) {
-                $thumbnail = ProductImage::where('product_id', $item->id)->where('is_thumbnail', 1)->value('file_name');
-                $item->thumbnail = url('storage/product_img/'. $thumbnail);
-                $item->category = ProductCategory::findOrFail($item->product_category_id)->name;
-                return ($item);
+                $item->thumbnail = url('storage/product_img/' . $item->thumbnailImage->file_name) ?? NULL;
+                $item->categoryProduct = $item->category->name;
+                unset($item->thumbnailImage);
+                unset($item->category);
+                return $item;
             });
 
             // Return the data as JSON using DataTables
@@ -38,6 +40,7 @@ class ProductController extends Controller
         $category = ProductCategory::all();
         return view('admin.product.index', compact('category'));
     }
+
 
     public function create(Request $request)
     {

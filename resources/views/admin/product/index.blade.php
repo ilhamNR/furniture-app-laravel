@@ -203,7 +203,7 @@
                             data: 'name'
                         },
                         {
-                            data: 'category',
+                            data: 'categoryProduct',
                             searchable: 'true'
                         },
                         {

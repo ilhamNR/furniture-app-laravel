@@ -21,4 +21,13 @@ class Product extends Model
     {
         $this->hasMany(ProductImage::class);
     }
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
+
+    public function thumbnailImage()
+    {
+        return $this->hasOne(ProductImage::class)->where('is_thumbnail', 1);
+    }
 }
