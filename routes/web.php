@@ -7,11 +7,13 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LandingPageController;
 use App\Http\Controllers\admin\AdminAboutUsController;
+use App\Http\Controllers\Admin\AdminInquiryController;
 
 //public controller
 use App\Http\Controllers\public\CatalogueController;
 use App\Http\Controllers\public\InquiryController;
 use App\Http\Controllers\public\AboutUsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +63,9 @@ Route::middleware([
             Route::get('/create', [ProductController::class, 'create'])->name('admin.createProduct');
             Route::post('/create/imgupload', [ProductController::class, 'uploadImage'])->name('admin.uploadImage');
             Route::post('/create/save', [ProductController::class, 'saveProduct'])->name('admin.saveProduct');
+        });
+        Route::prefix('inquiries')->group(function(){
+            Route::get('/', [AdminInquiryController::class, 'index'])->name('admin.inquiry');
         });
 
     });
