@@ -238,7 +238,7 @@
                             render: function(data)
                             {
                                 return `
-                                <img src="${data}" class="h-100 w-100">`;
+                                <img src="${data}" class="h-100px w-100px">`;
                             }
                         },
                         {
