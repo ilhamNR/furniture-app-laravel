@@ -6,135 +6,42 @@
             {{-- <h1>{{$data->name}}</h1> --}}
         </div>
         <div class="flex flex-row max-md:flex-col mx-8 my-12">
-            <div class="basis-1/4 mx-8 max-md:my-6">
+
+@foreach ($products as $product )
+<div class="basis-1/4 mx-8 max-md:my-6">
+    <div
+        class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+        <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
+            data-te-ripple-color="light">
+            <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
+                alt="" />
+            <a href="#!">
                 <div
-                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                    <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
-                        data-te-ripple-color="light">
-                        <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
-                            alt="" />
-                        <a href="#!">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <span
-                            class="inline-block whitespace-nowrap rounded-full bg-primary-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-700">
-                            In Stock
-                        </span>
-                        <h5 class="my-2 text-xl font-medium leading-tight text-neutral-800">
-                            Desk
-                        </h5>
-                        <p class="mb-4 text-base text-neutral-600">
-                            IDR10.000
-                        </p>
-                        <button type="button"
-                            class="w-full inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                            data-te-ripple-init data-te-ripple-color="light">
-                            Details
-                        </button>
-                    </div>
+                    class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100">
                 </div>
-            </div>
-            <div class="basis-1/4 mx-8 max-md:my-6">
-                <div
-                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                    <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
-                        data-te-ripple-color="light">
-                        <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
-                            alt="" />
-                        <a href="#!">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <span
-                            class="inline-block whitespace-nowrap rounded-full bg-primary-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-700">
-                            In Stock
-                        </span>
-                        <h5 class="my-2 text-xl font-medium leading-tight text-neutral-800">
-                            Desk
-                        </h5>
-                        <p class="mb-4 text-base text-neutral-600">
-                            IDR10.000
-                        </p>
-                        <button type="button"
-                            class="w-full inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                            data-te-ripple-init data-te-toggle="modal" data-te-target="#exampleModalXl" data-te-ripple-init
-                            data-te-ripple-color="light">
-                            Details
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="basis-1/4 mx-8 max-md:my-6">
-                <div
-                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                    <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
-                        data-te-ripple-color="light">
-                        <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
-                            alt="" />
-                        <a href="#!">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <span
-                            class="inline-block whitespace-nowrap rounded-full bg-primary-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-700">
-                            In Stock
-                        </span>
-                        <h5 class="my-2 text-xl font-medium leading-tight text-neutral-800">
-                            Desk
-                        </h5>
-                        <p class="mb-4 text-base text-neutral-600">
-                            IDR10.000
-                        </p>
-                        <button type="button"
-                            class="w-full inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                            data-te-ripple-init data-te-ripple-color="light">
-                            Details
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="basis-1/4 mx-8 max-md:my-6">
-                <div
-                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                    <div class="relative overflow-hidden bg-cover bg-no-repeat" data-te-ripple-init
-                        data-te-ripple-color="light">
-                        <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
-                            alt="" />
-                        <a href="#!">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <span
-                            class="inline-block whitespace-nowrap rounded-full bg-primary-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-700">
-                            In Stock
-                        </span>
-                        <h5 class="my-2 text-xl font-medium leading-tight text-neutral-800">
-                            Desk
-                        </h5>
-                        <p class="mb-4 text-base text-neutral-600">
-                            IDR10.000
-                        </p>
-                        <button type="button"
-                            class="w-full inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                            data-te-ripple-init data-te-ripple-color="light">
-                            Details
-                        </button>
-                    </div>
-                </div>
-            </div>
+            </a>
+        </div>
+        <div class="p-6">
+            <span
+                class="inline-block whitespace-nowrap rounded-full bg-primary-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-700">
+                In Stock
+            </span>
+            <h5 class="my-2 text-xl font-medium leading-tight text-neutral-800">
+                Desk
+            </h5>
+            <p class="mb-4 text-base text-neutral-600">
+                IDR10.000
+            </p>
+            <button type="button"
+                class="w-full inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                data-te-ripple-init data-te-toggle="modal" data-te-target="#exampleModalXl" data-te-ripple-init
+                data-te-ripple-color="light">
+                Details
+            </button>
+        </div>
+    </div>
+</div>
+@endforeach
         </div>
     </div>
     <!--Verically centered modal-->

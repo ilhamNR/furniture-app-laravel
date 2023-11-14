@@ -4,17 +4,21 @@ namespace App\Http\Controllers\public;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\ProductCategory;
+use App\Models\Product;
 
 class CatalogueController extends Controller
 {
     public function index($slug){
         if ($slug === 'all'){
-            $data = ProductCategory::get();
+            // $products = ProductCategory::get();
+            $products = Product::with('category')->get();
         }
         else {
-            $data = ProductCategory::where('slug', $slug)->get();
+            $products = Product::whereHas('category', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            })->get();
         }
-        return view('public.catalogue', compact('data'));
+        // dd($products);
+        return view('public.catalogue', compact('products'));
     }
 }
