@@ -394,6 +394,8 @@
 
                         // Disable the button to prevent multiple clicks
                         submitButton.disabled = true;
+                        // Submit the form
+                        form.submit();
 
                         // Simulate form submission with a delay
                         setTimeout(function() {
@@ -402,7 +404,6 @@
 
                             // Enable the button
                             submitButton.disabled = false;
-
                             // Show a success popup confirmation
                             Swal.fire({
                                 text: "Form has been successfully submitted!",
@@ -414,7 +415,7 @@
                                 }
                             });
 
-                            form.submit(); // Submit the form
+
                         }, 2000);
                     }
                 });
