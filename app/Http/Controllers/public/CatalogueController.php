@@ -8,13 +8,13 @@ use App\Models\Product;
 
 class CatalogueController extends Controller
 {
-    public function index($slug){
-        if ($slug === 'all'){
+    public function index($slug)
+    {
+        if ($slug === 'all') {
             // $products = ProductCategory::get();
-            $products = Product::with('category')->get();
-        }
-        else {
-            $products = Product::whereHas('category', function ($query) use ($slug) {
+            $products = Product::with('thumbnailImage')->with('category')->get();
+        } else {
+            $products = Product::with('thumbnailImage')->whereHas('category', function ($query) use ($slug) {
                 $query->where('slug', $slug);
             })->get();
         }
