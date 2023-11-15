@@ -105,7 +105,7 @@ class ProductController extends Controller
         $photos_data = json_decode($request->photos_data, true);
         $thumbnail_data = json_decode($request->thumbnail_data, true);
 
-        // try {
+        try {
             DB::beginTransaction();
             $data = Product::create([
                 'name' => $request->name,
@@ -116,7 +116,7 @@ class ProductController extends Controller
             ]);
 
             // Move product photos and thumbnails to the public folder
-            if (isset($photos_data)){
+            if (isset($photos_data)) {
                 foreach ($photos_data as $photo) {
                     ProductController::moveImageToPublic($data->id, $photo, false);
                 };
@@ -127,12 +127,27 @@ class ProductController extends Controller
             };
 
             DB::commit();
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     return $this->error('Something Went Wrong', 422);
-        // }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error('Something Went Wrong', 422);
+        }
 
         // Handle successful product creation
-        return $this->success(200,'Product added sucessfully!');
+        return $this->success(200, 'Product added sucessfully!');
+    }
+    public function editProduct(Request $request, $id)
+    {
+        $data = Product::findOrFail($id);
+        // dd($data);
+
+        $thumbnail = ProductImage::where('product_id', $id)->where('is_thumbnail', 1)->first()->value('file_name');
+
+
+        $photos = ProductImage::where('product_id', $id)->where('is_thumbnail', 0)->get()->pluck('file_name');
+        // dd($photos);
+
+        // Load product categories for the view
+        $category = ProductCategory::all();
+        return view('admin.product.edit', compact('data', 'category', 'photos', 'thumbnail'));
     }
 }

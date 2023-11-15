@@ -63,6 +63,7 @@ Route::middleware([
             Route::get('/create', [ProductController::class, 'create'])->name('admin.createProduct');
             Route::post('/create/imgupload', [ProductController::class, 'uploadImage'])->name('admin.uploadImage');
             Route::post('/create/save', [ProductController::class, 'saveProduct'])->name('admin.saveProduct');
+            Route::get('/edit/{id}', [ProductController::class, "editProduct"])->name('admin.editProduct');
         });
         Route::prefix('inquiries')->group(function(){
             Route::get('/', [AdminInquiryController::class, 'index'])->name('admin.inquiry');
