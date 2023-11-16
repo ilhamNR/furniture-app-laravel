@@ -5,7 +5,7 @@
         <div class="text-5xl my-12  text-center">
             {{-- <h1>{{$data->name}}</h1> --}}
         </div>
-        <div class="flex flex-wrap flex-none justify-center flex-row max-md:flex-col mx-8 my-12">
+        <div class="flex flex-wrap flex-none justify-center flex-row max-lg:flex-col mx-8 my-12">
 
             @foreach ($products as $product)
                 <div class="basis-1/4 mx-8 my-6">
