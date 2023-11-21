@@ -1,11 +1,12 @@
 @extends('public.components.layout')
 
 @section('content')
+
     <div class="my-12  justify-center">
         <div class="text-5xl my-12  text-center">
             {{-- <h1>{{$data->name}}</h1> --}}
         </div>
-        <div class="flex flex-wrap flex-none justify-center flex-row max-lg:flex-col mx-8 my-12">
+        <div class="flex flex-wrap flex-none justify-center flex-row max-md:flex-col mx-8 my-12">
 
             @foreach ($products as $product)
                 <div class="basis-1/4 mx-8 my-6">
@@ -78,7 +79,7 @@
 
                 <!--Modal body-->
                 <div class="relative p-4">
-                    <div class="flex flex-row max-md:flex-col">
+                    <div class="flex flex-row max-lg:flex-col">
                         <div class="basis-1/2">
                             <div id="carouselExampleIndicators" class="relative" data-te-carousel-init
                                 data-te-ride="carousel">

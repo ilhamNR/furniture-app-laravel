@@ -25,7 +25,7 @@
     <meta name="theme-color" content="#ffffff">
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
-
+    @livewireStyles
 </head>
 
 <body>
@@ -43,4 +43,5 @@
 
 {{-- <script type="text/javascript" src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> --}}
 
+@livewireScripts
 </html>

@@ -6,7 +6,7 @@
 <nav class="relative flex w-full flex-nowrap items-center justify-between bg-[#FBFBFB] py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 lg:flex-wrap lg:justify-start lg:py-4 font-futura"
     data-te-navbar-ref>
     <div class="flex w-full flex-wrap items-center justify-between px-3">
-        <div class="ml-2 md:absolute">
+        <div class="ml-2 lg:absolute">
             <a class="text-xl text-neutral-800" href="/">{{ env('APP_NAME') }}</a>
         </div>
         <!-- Hamburger button for mobile view -->
