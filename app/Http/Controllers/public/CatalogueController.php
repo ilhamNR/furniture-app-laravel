@@ -9,16 +9,17 @@ use App\Models\Product;
 class CatalogueController extends Controller
 {
     public function index($slug)
+
     {
-        if ($slug === 'all') {
-            // $products = ProductCategory::get();
-            $products = Product::with('thumbnailImage')->with('category')->get();
-        } else {
-            $products = Product::with('thumbnailImage')->whereHas('category', function ($query) use ($slug) {
-                $query->where('slug', $slug);
-            })->get();
-        }
-        // dd($products);
-        return view('public.catalogue', compact('products'));
+        // if ($slug === 'all') {
+        //     // $products = ProductCategory::get();
+        //     $products = Product::with('thumbnailImage')->with('category')->get();
+        // } else {
+        //     $products = Product::with('thumbnailImage')->whereHas('category', function ($query) use ($slug) {
+        //         $query->where('slug', $slug);
+        //     })->get();
+        // }
+        // // dd($products);
+        return view('public.catalogue', compact('slug'));
     }
 }
