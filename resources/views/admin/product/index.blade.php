@@ -74,15 +74,14 @@
                                     </label>
                                     <!--end::Option-->
                                     @foreach ($category as $item)
-
-
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                        <input class="form-check-input" type="radio" name="product_category"
-                                            value="{{$item->name}}" />
-                                        <span class="form-check-label text-gray-600">{{$item->name}}</span>
-                                    </label>
-                                    <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <label
+                                            class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                            <input class="form-check-input" type="radio" name="product_category"
+                                                value="{{ $item->name }}" />
+                                            <span class="form-check-label text-gray-600">{{ $item->name }}</span>
+                                        </label>
+                                        <!--end::Option-->
                                     @endforeach
                                 </div>
                                 <!--end::Options-->
@@ -234,9 +233,8 @@
                         },
                         {
                             targets: 1,
-                            orderable:false,
-                            render: function(data)
-                            {
+                            orderable: false,
+                            render: function(data) {
                                 return `
                                 <img src="${data}" class="h-100px w-100px">`;
                             }
@@ -366,7 +364,12 @@
                         const parent = e.target.closest('tr');
 
                         // Get Product name
-                        const ProductName = parent.querySelectorAll('td')[1].innerText;
+                        const ProductName = parent.querySelectorAll('td')[2].innerText;
+                        // Get category id
+                        const categoryId = parent.querySelectorAll('td')[0];
+                        // Find the <input> element within the <td>
+                        const inputElement = categoryId.querySelector('input.form-check-input')
+                            .value
 
                         // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
                         Swal.fire({
@@ -383,13 +386,19 @@
                         }).then(function(result) {
                             if (result.value) {
                                 // Simulate delete request -- for demo purpose only
-                                Swal.fire({
-                                    text: "Deleting " + ProductName,
-                                    icon: "info",
-                                    buttonsStyling: false,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                }).then(function() {
+                                fetch('{!! route('admin.deleteProduct') !!}', {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': "application/json",
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Replace with the actual CSRF token
+
+                                    },
+                                    body: JSON.stringify({
+                                        ids: [
+                                        inputElement], // Send the selected IDs as a JSON object
+                                    }),
+                                })
                                     Swal.fire({
                                         text: "You have deleted " +
                                             ProductName + "!.",
@@ -403,7 +412,7 @@
                                         // delete row data from server and re-draw datatable
                                         dt.draw();
                                     });
-                                });
+
                             } else if (result.dismiss === 'cancel') {
                                 Swal.fire({
                                     text: ProductName + " was not deleted.",

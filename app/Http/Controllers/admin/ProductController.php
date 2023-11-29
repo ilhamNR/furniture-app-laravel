@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
 use App\Traits\APIResponseTrait;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -94,6 +95,35 @@ class ProductController extends Controller
             'file_name' => $filename,
             'is_thumbnail' => $is_thumbnail
         ]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $id = $request->ids;
+        var_dump($id);
+        $product = Product::where('id',$id)->first();
+        // delete all photos associated with product
+        $photos = ProductImage::where('product_id', $id)->get();
+        // dd($photos);
+        // try {
+            DB::beginTransaction();
+            $photoIdsToDelete = [];
+
+            foreach ($photos as $photo) {
+                if (Storage::exists('public/product_img/' . $photo->file_name)) {
+                    Storage::delete('public/product_img/' . $photo->file_name);
+                    $photoIdsToDelete[] = $photo->id;
+                }
+            }
+            // Perform a single query to delete records based on photo IDs
+            ProductImage::whereIn('id', $photoIdsToDelete)->delete();
+            $product->delete();
+            DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollBack();
+        //     return $this->error('Something Went Wrong', 422);
+        // }
+        // return $this->success(200, 'Product deleted successfully!');
     }
 
     public function saveProduct(Request $request)

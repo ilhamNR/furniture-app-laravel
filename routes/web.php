@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 //admin controller
 use App\Http\Controllers\Admin\WebSettingController;
 use App\Http\Controllers\Admin\ProductCategoryController;
@@ -28,7 +29,7 @@ use App\Http\Controllers\public\AboutUsController;
 
 Route::get('/', function () {
     return view('public.landing');
-});
+})->lazy();
 
 Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us');
 
@@ -63,7 +64,8 @@ Route::middleware([
             Route::get('/create', [ProductController::class, 'create'])->name('admin.createProduct');
             Route::post('/create/imgupload', [ProductController::class, 'uploadImage'])->name('admin.uploadImage');
             Route::post('/create/save', [ProductController::class, 'saveProduct'])->name('admin.saveProduct');
-            Route::get('/edit/{id}', [ProductController::class, "editProduct"])->name('admin.editProduct');
+            Route::get('/{id}/edit', [ProductController::class, "editProduct"])->name('admin.editProduct');
+            Route::delete('/delete', [ProductController::class, "destroy"])->name('admin.deleteProduct');
         });
         Route::prefix('inquiries')->group(function(){
             Route::get('/', [AdminInquiryController::class, 'index'])->name('admin.inquiry');
