@@ -29,6 +29,7 @@
 </head>
 
 <body>
+
     <!-- Main navigation container -->
     @include('public.components.navbar')
 
@@ -38,10 +39,11 @@
     @include('public.components.footer')
 
     {{-- Gallery --}}
+    @livewireScripts
 </body>
 
 
 {{-- <script type="text/javascript" src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> --}}
 
-@livewireScripts
+
 </html>
