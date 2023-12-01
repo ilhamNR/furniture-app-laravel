@@ -16,6 +16,7 @@
                 <form id="inquiry-form" data-te-validation-init data-te-validated="false" method="POST"
                     action="{{ route('send-inquiry') }}">
                     @csrf
+                    <x-honeypot />
                     <div class="grid grid-cols-2 gap-4">
                         <!--First name input-->
                         <div class="relative mb-6" data-te-input-wrapper-init id="input-firstname" data-te-validate="input"
