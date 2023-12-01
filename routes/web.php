@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 //admin controller
 use App\Http\Controllers\Admin\WebSettingController;
@@ -35,7 +36,7 @@ Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us');
 
 Route::prefix('contact-us')->group(function () {
     Route::get('/', [InquiryController::class, 'index'])->name('contact-us');
-    Route::post('submit', [InquiryController::class, 'sendInquiry'])->name('send-inquiry');
+    Route::post('submit', [InquiryController::class, 'sendInquiry'])->middleware(ProtectAgainstSpam::class)->name('send-inquiry');
 });
 Route::get('catalogue/{slug}', [CatalogueController::class, 'index'])->name('catalogue');
 
